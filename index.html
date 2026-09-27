@@ -2,456 +2,923 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
 <title>JROTC Uniform Setup Guide</title>
 
 <style>
-*{box-sizing:border-box}
-
 :root{
-  --bg:#070a10;
-  --panel:#111827;
-  --panel2:#182235;
-  --border:#334155;
-  --text:#f8fafc;
-  --muted:#94a3b8;
-  --accent:#60a5fa;
+  --bg:#07111f;
+  --panel:#0d1b2d;
+  --panel2:#12243a;
+  --border:#243b55;
+  --text:#f4f7fb;
+  --muted:#9fb0c3;
+  --accent:#4da3ff;
+  --accent2:#7dd3fc;
+  --danger:#ef4444;
+  --good:#34d399;
+  --gold:#f6c453;
+  --shadow:0 18px 50px rgba(0,0,0,.35);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
   margin:0;
   background:
-    radial-gradient(circle at top,#172033 0,#070a10 48%);
+    radial-gradient(circle at top left,#17355a 0,transparent 30%),
+    radial-gradient(circle at top right,#102b45 0,transparent 28%),
+    var(--bg);
   color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
-header{
-  text-align:center;
-  padding:25px 18px;
-  border-bottom:1px solid var(--border);
-  background:#0b1220dd;
-  backdrop-filter:blur(12px);
+button,
+select,
+input{
+  font:inherit;
 }
 
-header h1{
-  margin:0 0 8px;
-  font-size:28px;
+button{
+  cursor:pointer;
 }
 
-header p{
-  margin:0;
-  color:var(--muted);
-}
-
-main{
-  max-width:1250px;
+.app{
+  width:min(1450px,100%);
   margin:auto;
   padding:18px;
 }
 
-.panel{
-  background:#111827ee;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
+/* HEADER */
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
   margin-bottom:18px;
-  box-shadow:0 12px 35px #0005;
 }
 
-label{
-  display:block;
-  margin:10px 0 6px;
-  font-weight:700;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:13px;
 }
 
-select,
-button{
-  width:100%;
-  padding:13px;
-  border-radius:12px;
-  border:1px solid #475569;
-  background:#182235;
-  color:white;
-  font-size:15px;
+.logo{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#2563eb,#38bdf8);
+  font-weight:900;
+  box-shadow:0 8px 25px rgba(37,99,235,.35);
 }
 
-button{
-  font-weight:700;
-  cursor:pointer;
+.brand h1{
+  margin:0;
+  font-size:clamp(20px,4vw,30px);
 }
 
-button:hover{
-  background:#26354e;
+.brand p{
+  margin:2px 0 0;
+  color:var(--muted);
+  font-size:13px;
 }
+
+.header-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+/* BUTTONS */
+
+.btn{
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:11px;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  border-color:#456785;
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,#2563eb,#0284c7);
+  border-color:transparent;
+}
+
+.btn.danger{
+  background:#32151a;
+  border-color:#6b252d;
+}
+
+.btn.good{
+  background:#0b2b23;
+  border-color:#17614e;
+}
+
+/* NOTICE */
+
+.notice{
+  background:rgba(13,27,45,.88);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:13px 15px;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:18px;
+}
+
+.notice strong{
+  color:var(--text);
+}
+
+/* SERVICE SELECT */
+
+.section-title{
+  margin:22px 0 10px;
+  font-size:17px;
+}
+
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+}
+
+.service-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,#102238,#0b1727);
+  border-radius:15px;
+  min-height:105px;
+  color:var(--text);
+  padding:14px;
+  text-align:left;
+  transition:.2s;
+}
+
+.service-card:hover{
+  transform:translateY(-2px);
+  border-color:#416784;
+}
+
+.service-card.active{
+  border-color:var(--accent);
+  box-shadow:0 0 0 1px var(--accent),0 10px 35px rgba(77,163,255,.12);
+}
+
+.service-symbol{
+  font-size:27px;
+  margin-bottom:9px;
+}
+
+.service-name{
+  font-weight:800;
+}
+
+.service-desc{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+/* MAIN GRID */
 
 .workspace{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 350px;
-  gap:18px;
+  grid-template-columns:370px minmax(400px,1fr) 330px;
+  gap:16px;
+  align-items:start;
+  margin-top:18px;
 }
 
-.uniform-area{
+.panel{
+  background:rgba(13,27,45,.92);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.panel-head{
+  padding:15px 16px;
+  border-bottom:1px solid var(--border);
+}
+
+.panel-head h2{
+  margin:0;
+  font-size:16px;
+}
+
+.panel-head p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.panel-body{
+  padding:15px;
+}
+
+/* UNIFORM SELECTOR */
+
+.uniform-select{
+  width:100%;
+  padding:11px 12px;
+  background:#081522;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  margin-bottom:12px;
+}
+
+.uniform-info{
+  padding:12px;
+  background:#091827;
+  border:1px solid #1e344b;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+
+.uniform-info strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.uniform-info span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* TABS */
+
+.tabs{
+  display:flex;
+  overflow:auto;
+  gap:5px;
+  margin-bottom:12px;
+  scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar{
+  display:none;
+}
+
+.tab{
+  white-space:nowrap;
+  border:1px solid var(--border);
+  background:#0a1726;
+  color:var(--muted);
+  border-radius:9px;
+  padding:8px 11px;
+}
+
+.tab.active{
+  background:#17304c;
+  color:#fff;
+  border-color:#416784;
+}
+
+/* ITEM CARDS */
+
+.item-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  max-height:560px;
+  overflow:auto;
+  padding-right:2px;
+}
+
+.item{
+  border:1px solid var(--border);
+  background:#0a1726;
+  border-radius:12px;
+  color:var(--text);
+  padding:8px;
+  text-align:left;
+  transition:.18s;
+}
+
+.item:hover{
+  border-color:#4b6e8f;
+  transform:translateY(-1px);
+}
+
+.item:active{
+  transform:scale(.98);
+}
+
+.item-visual{
+  height:52px;
+  display:grid;
+  place-items:center;
+  margin-bottom:6px;
+}
+
+.item-name{
+  font-size:11px;
+  line-height:1.25;
+  font-weight:700;
+}
+
+.item-type{
+  font-size:9px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+/* RIBBON VISUALS */
+
+.ribbon{
+  width:72px;
+  height:17px;
+  border:1px solid rgba(255,255,255,.45);
+  box-shadow:0 2px 5px rgba(0,0,0,.45);
+  position:relative;
+  overflow:hidden;
+}
+
+.ribbon::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    90deg,
+    rgba(255,255,255,.15),
+    transparent 35%,
+    rgba(0,0,0,.12)
+  );
+}
+
+.ribbon.red{background:#b91c1c}
+.ribbon.blue{background:#2563eb}
+.ribbon.gold{background:#d6a72b}
+.ribbon.green{background:#15803d}
+.ribbon.white{background:#e5e7eb}
+.ribbon.black{background:#111827}
+.ribbon.orange{background:#ea580c}
+.ribbon.purple{background:#7e22ce}
+.ribbon.teal{background:#0f766e}
+.ribbon.gray{background:#64748b}
+
+.ribbon.pattern-blue-red{
+  background:linear-gradient(
+    90deg,
+    #2563eb 0 20%,
+    #e5e7eb 20% 28%,
+    #dc2626 28% 72%,
+    #e5e7eb 72% 80%,
+    #2563eb 80%
+  );
+}
+
+.ribbon.pattern-red-white{
+  background:linear-gradient(
+    90deg,
+    #dc2626 0 28%,
+    #f8fafc 28% 36%,
+    #dc2626 36% 64%,
+    #f8fafc 64% 72%,
+    #dc2626 72%
+  );
+}
+
+.ribbon.pattern-blue-white{
+  background:linear-gradient(
+    90deg,
+    #2563eb 0 30%,
+    #f8fafc 30% 40%,
+    #2563eb 40% 60%,
+    #f8fafc 60% 70%,
+    #2563eb 70%
+  );
+}
+
+.ribbon.pattern-green-white{
+  background:linear-gradient(
+    90deg,
+    #15803d 0 30%,
+    #f8fafc 30% 40%,
+    #15803d 40% 60%,
+    #f8fafc 60% 70%,
+    #15803d 70%
+  );
+}
+
+.ribbon.pattern-rainbow{
+  background:linear-gradient(
+    90deg,
+    #dc2626 0 16%,
+    #f97316 16% 32%,
+    #eab308 32% 48%,
+    #22c55e 48% 64%,
+    #2563eb 64% 80%,
+    #7c3aed 80%
+  );
+}
+
+/* UNIFORM AREA */
+
+.uniform-stage{
   min-height:720px;
+  position:relative;
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
-  position:relative;
+  padding:25px;
   background:
-    linear-gradient(
-      90deg,
-      transparent 49.8%,
-      #475569 50%,
-      transparent 50.2%
-    ),
-    #0b1220;
+    radial-gradient(circle,#17304b 0,transparent 55%),
+    #07111f;
 }
 
-.uniform-stage{
-  width:min(520px,96%);
-  height:680px;
+.uniform{
+  width:min(380px,90%);
+  height:620px;
   position:relative;
-  transition:.4s;
+  transition:.45s;
+  filter:drop-shadow(0 25px 25px rgba(0,0,0,.45));
 }
 
-.uniform-stage.animate-in{
-  animation:uniformIn .55s ease;
+.uniform.animate{
+  animation:uniformIn .45s ease;
 }
 
 @keyframes uniformIn{
-  0%{
-    opacity:0;
-    transform:scale(.94) translateY(15px);
-  }
-  100%{
-    opacity:1;
-    transform:scale(1) translateY(0);
-  }
+  0%{opacity:.4;transform:translateY(14px) scale(.98)}
+  100%{opacity:1;transform:none}
 }
 
-/* =========================
-   ANIMATED SVG UNIFORM
-========================= */
+/* SVG */
 
-.uniform-svg{
+.uniform svg{
   width:100%;
   height:100%;
   overflow:visible;
 }
 
-.uniform-svg .cloth{
-  transition:
-    fill .35s,
-    stroke .35s,
-    transform .3s;
+.centerline{
+  position:absolute;
+  top:38px;
+  bottom:30px;
+  left:50%;
+  width:1px;
+  border-left:1px dashed rgba(125,211,252,.4);
+  pointer-events:none;
 }
 
-.uniform-svg .placement-zone{
-  fill:#60a5fa12;
-  stroke:#60a5fa55;
-  stroke-dasharray:6 6;
+.zone{
+  position:absolute;
+  border:1px dashed rgba(125,211,252,.45);
+  background:rgba(77,163,255,.04);
+  pointer-events:none;
   opacity:0;
-  transition:.25s;
+  transition:.2s;
 }
 
-.uniform-svg.show-zones .placement-zone{
+.show-zones .zone{
   opacity:1;
 }
 
-.uniform-svg .pocket{
-  fill:none;
-  stroke:#94a3b8;
-  stroke-width:2;
-  opacity:.65;
+.zone-label{
+  position:absolute;
+  top:-18px;
+  left:0;
+  color:#7dd3fc;
+  font-size:9px;
+  white-space:nowrap;
 }
 
-.uniform-svg .seam{
-  fill:none;
-  stroke:#64748b;
-  stroke-width:2;
+/* PLACED ITEMS */
+
+.placed-area{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
 
-.uniform-svg .collar{
-  fill:#202b3d;
-  stroke:#64748b;
-  stroke-width:2;
-}
-
-.uniform-svg .button{
-  fill:#d1d5db;
-  stroke:#475569;
-}
-
-.uniform-svg .placed{
-  animation:placeItem .45s cubic-bezier(.2,.8,.2,1);
+.placed{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  pointer-events:auto;
+  animation:placeIn .3s ease;
   cursor:pointer;
 }
 
-@keyframes placeItem{
-  0%{
+@keyframes placeIn{
+  from{
     opacity:0;
-    transform:translateY(-18px) scale(.65);
+    transform:translate(-50%,-50%) scale(.65);
   }
-  70%{
-    transform:translateY(3px) scale(1.04);
-  }
-  100%{
+  to{
     opacity:1;
-    transform:translateY(0) scale(1);
+    transform:translate(-50%,-50%) scale(1);
   }
 }
 
-.uniform-svg .selected{
-  filter:
-    drop-shadow(0 0 5px #60a5fa)
-    drop-shadow(0 0 12px #60a5fa);
+.placed:hover{
+  filter:brightness(1.25);
 }
 
-.tabs{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  padding-bottom:5px;
+.placed-ribbon{
+  width:55px;
+  height:12px;
 }
 
-.tab{
-  min-width:max-content;
-  width:auto;
+.placed-badge{
+  min-width:30px;
+  height:30px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(145deg,#f5d76e,#a66b00);
+  color:#17120a;
+  border:2px solid #ffeaa7;
+  font-size:15px;
+  box-shadow:0 3px 7px rgba(0,0,0,.5);
 }
 
-.tab.active{
-  background:#31527d;
-  border-color:#78b5ff;
-}
-
-.items{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  padding:15px 3px 7px;
-}
-
-.item{
-  flex:0 0 135px;
-  min-height:155px;
+.placed-medal{
+  width:30px;
+  height:38px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:space-between;
-  text-align:center;
-  padding:12px;
-  border-radius:15px;
-  background:#182235;
-  border:1px solid #334155;
 }
 
-.item strong{
-  font-size:13px;
-  line-height:1.25;
+.medal-ribbon{
+  width:14px;
+  height:18px;
+  background:#dc2626;
+  border:1px solid white;
 }
 
-.ribbon{
-  width:86px;
-  height:24px;
-  border:1px solid #e2e8f0;
-  box-shadow:0 3px 7px #0008;
-  margin:8px auto;
-}
-
-.ribbon-army{
-  background:
-    linear-gradient(
-      90deg,
-      #c1121f 0 18%,
-      #f5f5f5 18% 28%,
-      #1d4ed8 28% 48%,
-      #f5f5f5 48% 58%,
-      #c1121f 58% 78%,
-      #f5f5f5 78% 88%,
-      #1d4ed8 88%
-    );
-}
-
-.ribbon-navy{
-  background:
-    linear-gradient(
-      90deg,
-      #dc2626 0 20%,
-      #f8fafc 20% 35%,
-      #1e3a8a 35% 65%,
-      #f8fafc 65% 80%,
-      #dc2626 80%
-    );
-}
-
-.ribbon-air{
-  background:
-    linear-gradient(
-      90deg,
-      #1e3a8a 0 25%,
-      #f8fafc 25% 38%,
-      #38bdf8 38% 62%,
-      #f8fafc 62% 75%,
-      #1e3a8a 75%
-    );
-}
-
-.ribbon-marine{
-  background:
-    linear-gradient(
-      90deg,
-      #7f1d1d 0 25%,
-      #f8fafc 25% 35%,
-      #1f2937 35% 65%,
-      #f8fafc 65% 75%,
-      #7f1d1d 75%
-    );
-}
-
-.ribbon-coast{
-  background:
-    linear-gradient(
-      90deg,
-      #1e3a8a 0 20%,
-      #f8fafc 20% 35%,
-      #dc2626 35% 65%,
-      #f8fafc 65% 80%,
-      #1e3a8a 80%
-    );
-}
-
-.ribbon-space{
-  background:
-    linear-gradient(
-      90deg,
-      #0f172a 0 25%,
-      #38bdf8 25% 38%,
-      #f8fafc 38% 62%,
-      #38bdf8 62% 75%,
-      #0f172a 75%
-    );
-}
-
-.medal{
-  width:48px;
-  height:48px;
+.medal-disc{
+  width:25px;
+  height:25px;
   border-radius:50%;
-  background:linear-gradient(#f8e7a1,#a87c18);
-  border:3px solid #e5e7eb;
-  margin:8px auto;
-}
-
-.badge{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:linear-gradient(#f8fafc,#94a3b8);
-  border:2px solid #334155;
-  margin:8px auto;
-}
-
-.rank{
-  min-width:55px;
-  padding:7px 9px;
-  background:#111827;
-  border:1px solid #cbd5e1;
-  border-radius:7px;
-  margin:8px auto;
-  font-size:12px;
-}
-
-.small{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.info{
-  color:#b6c2d3;
-  line-height:1.5;
-}
-
-.notice{
-  background:#211b0b;
-  border:1px solid #66531f;
-  border-radius:12px;
-  padding:13px;
-  color:#e7d59c;
-  line-height:1.5;
-}
-
-.actions{
+  background:linear-gradient(145deg,#ffe58a,#bd8615);
+  border:2px solid #fff0b8;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:12px;
+  place-items:center;
+  font-size:11px;
+}
+
+/* RIGHT PANEL */
+
+.summary{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  background:#091827;
+  border:1px solid #1e344b;
+  border-radius:11px;
+  margin-bottom:10px;
+}
+
+.summary strong{
+  font-size:20px;
+}
+
+.summary span{
+  color:var(--muted);
+  font-size:11px;
 }
 
 .check{
   display:flex;
-  align-items:center;
-  gap:10px;
-  padding:9px 0;
-  border-bottom:1px solid #263246;
+  gap:9px;
+  align-items:flex-start;
+  padding:10px;
+  background:#091827;
+  border:1px solid #1e344b;
+  border-radius:10px;
+  margin-bottom:7px;
+  font-size:12px;
 }
 
 .check input{
-  width:20px;
-  height:20px;
+  margin-top:2px;
+  accent-color:var(--good);
+}
+
+.placed-list{
+  max-height:300px;
+  overflow:auto;
+}
+
+.list-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  border-bottom:1px solid #1a2d42;
+  font-size:11px;
+}
+
+.list-item:last-child{
+  border-bottom:0;
+}
+
+.list-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--accent);
+  flex:none;
+}
+
+.empty{
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+  padding:25px 10px;
+}
+
+/* MEASUREMENT */
+
+.measure{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#091827;
+}
+
+.measure-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:9px 0;
+}
+
+.measure-line{
+  flex:1;
+  height:1px;
+  background:#7dd3fc;
+  position:relative;
+}
+
+.measure-line::before,
+.measure-line::after{
+  content:"";
+  position:absolute;
+  top:-4px;
+  width:1px;
+  height:9px;
+  background:#7dd3fc;
+}
+
+.measure-line::before{left:0}
+.measure-line::after{right:0}
+
+.measure small{
+  color:var(--muted);
+}
+
+/* FOOTER */
+
+footer{
+  margin:22px 0 5px;
+  color:var(--muted);
+  font-size:11px;
+  text-align:center;
+}
+
+.sources{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:10px;
 }
 
 .sources a{
-  display:block;
-  color:#7db7ff;
-  margin:9px 0;
+  color:#8dccff;
   text-decoration:none;
+  border:1px solid #294866;
+  padding:6px 8px;
+  border-radius:8px;
+  background:#091827;
 }
 
 .sources a:hover{
   text-decoration:underline;
 }
 
-.placement-help{
-  margin-top:12px;
-  padding:12px;
-  border:1px solid #334155;
-  border-radius:12px;
-  background:#0d1523;
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(5px);
+  display:none;
+  place-items:center;
+  z-index:100;
+  padding:20px;
 }
 
-footer{
-  text-align:center;
-  color:#64748b;
-  padding:25px;
+.modal.open{
+  display:grid;
 }
 
-@media(max-width:850px){
+.modal-card{
+  width:min(600px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#0d1b2d;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.modal-card h2{
+  margin-top:0;
+}
+
+.modal-card p,
+.modal-card li{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translate(-50%,20px);
+  background:#10263c;
+  border:1px solid #365879;
+  padding:11px 15px;
+  border-radius:10px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:200;
+  font-size:13px;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* MOBILE */
+
+@media(max-width:1100px){
+  .service-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
 
   .workspace{
-    grid-template-columns:1fr;
+    grid-template-columns:300px minmax(350px,1fr);
   }
 
-  .uniform-area{
-    min-height:650px;
+  .right-panel{
+    grid-column:1/-1;
   }
 }
 
-@media(max-width:520px){
-
-  header h1{
-    font-size:23px;
-  }
-
-  main{
+@media(max-width:760px){
+  .app{
     padding:10px;
   }
 
+  header{
+    align-items:flex-start;
+  }
+
+  .header-actions .btn{
+    padding:8px 10px;
+    font-size:11px;
+  }
+
+  .service-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .workspace{
+    display:flex;
+    flex-direction:column;
+  }
+
   .panel{
-    padding:13px;
+    width:100%;
   }
 
   .uniform-stage{
-    height:610px;
+    min-height:620px;
+    padding:10px;
+  }
+
+  .uniform{
+    width:min(330px,95%);
+    height:560px;
+  }
+
+  .item-grid{
+    grid-template-columns:repeat(3,1fr);
+    max-height:400px;
+  }
+
+  .item{
+    padding:6px;
+  }
+
+  .item-visual{
+    height:44px;
+  }
+
+  .item-name{
+    font-size:9px;
+  }
+
+  .item-type{
+    font-size:8px;
+  }
+}
+
+@media(max-width:430px){
+  .service-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .brand p{
+    display:none;
+  }
+
+  .header-actions{
+    gap:4px;
+  }
+
+  .header-actions .btn{
+    font-size:10px;
+    padding:7px;
+  }
+
+  .item-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* PRINT */
+
+@media print{
+  body{
+    background:white;
+    color:black;
+  }
+
+  .app{
+    width:100%;
+  }
+
+  header,
+  .service-grid,
+  .left-panel,
+  .right-panel,
+  .notice,
+  footer{
+    display:none !important;
+  }
+
+  .workspace{
+    display:block;
+  }
+
+  .center-panel{
+    border:0;
+    box-shadow:none;
+  }
+
+  .uniform-stage{
+    background:white;
+    min-height:800px;
+  }
+
+  .uniform{
+    filter:none;
   }
 }
 </style>
@@ -459,1134 +926,1446 @@ footer{
 
 <body>
 
+<div class="app">
+
 <header>
-  <h1>🎖️ JROTC Uniform Setup Guide</h1>
-  <p>Ranks • Ribbons • Medals • Badges • Uniform Placement</p>
+  <div class="brand">
+    <div class="logo">J</div>
+    <div>
+      <h1>JROTC Uniform Setup Guide</h1>
+      <p>Build • Inspect • Save • Print</p>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <button class="btn" onclick="toggleZones()">📏 Placement Zones</button>
+    <button class="btn" onclick="saveSetup()">💾 Save</button>
+    <button class="btn" onclick="loadSetup()">↩ Load</button>
+    <button class="btn primary" onclick="printSetup()">🖨 Print</button>
+  </div>
 </header>
 
-<main>
-
-<div class="panel">
-
-<label for="service">1. Select JROTC Program</label>
-
-<select id="service"></select>
-
-<label for="uniformType">2. Select Uniform</label>
-
-<select id="uniformType"></select>
-
-<div id="uniformInfo" class="info"></div>
-
+<div class="notice">
+  <strong>Important:</strong>
+  This guide is an interactive planning/learning tool. The uniform drawings are illustrations and are not to scale.
+  Always verify exact placement, measurements, authorized awards, and local JROTC requirements against the current
+  service/JROTC regulation and your instructor's guidance.
 </div>
 
+<h2 class="section-title">1. Select your JROTC service</h2>
 
-<div class="panel">
-
-<div class="tabs">
-
-<button class="tab active" data-tab="rank">
-Rank
-</button>
-
-<button class="tab" data-tab="ribbons">
-Ribbons
-</button>
-
-<button class="tab" data-tab="medals">
-Medals
-</button>
-
-<button class="tab" data-tab="badges">
-Badges / Insignia
-</button>
-
-</div>
-
-<div id="items" class="items"></div>
-
-</div>
-
+<div class="service-grid" id="serviceGrid"></div>
 
 <div class="workspace">
 
+  <!-- LEFT -->
 
-<div class="panel uniform-area">
+  <section class="panel left-panel">
+    <div class="panel-head">
+      <h2>2. Uniform & Insignia</h2>
+      <p>Select a uniform, then choose items to place.</p>
+    </div>
 
-<div class="uniform-stage" id="uniformStage">
+    <div class="panel-body">
 
-<svg
-id="uniformSvg"
-class="uniform-svg"
-viewBox="0 0 520 680"
-xmlns="http://www.w3.org/2000/svg"
->
+      <select class="uniform-select" id="uniformSelect"></select>
 
-<!-- shoulders -->
-<path
-id="shoulders"
-class="cloth"
-d="M125 100 L55 145 L105 210 L150 185
-L150 590 L370 590 L370 185 L415 210
-L465 145 L395 100 Z"
-/>
+      <div class="uniform-info">
+        <strong id="uniformName">Uniform</strong>
+        <span id="uniformDescription">Select a service and uniform.</span>
+      </div>
 
-<!-- torso -->
-<path
-id="torso"
-class="cloth"
-d="M150 160
-L195 125
-L325 125
-L370 160
-L370 590
-L150 590 Z"
-/>
+      <div class="tabs">
+        <button class="tab active" data-tab="rank">Rank</button>
+        <button class="tab" data-tab="ribbons">Ribbons</button>
+        <button class="tab" data-tab="medals">Medals</button>
+        <button class="tab" data-tab="badges">Badges / Insignia</button>
+      </div>
 
-<!-- collar -->
-<path
-class="collar"
-d="M195 125 L260 180 L325 125
-L305 110 L260 150 L215 110 Z"
-/>
+      <div class="item-grid" id="itemGrid"></div>
 
-<!-- center seam -->
-<path
-class="seam"
-d="M260 180 L260 590"
-/>
+      <div class="measure">
+        <strong>Placement reference</strong>
 
-<!-- left pocket -->
-<rect
-id="leftPocket"
-class="pocket"
-x="175"
-y="290"
-width="75"
-height="55"
-rx="3"
-/>
+        <div class="measure-row">
+          <small>Illustrative</small>
+          <div class="measure-line"></div>
+          <small>Not to scale</small>
+        </div>
 
-<!-- right pocket -->
-<rect
-id="rightPocket"
-class="pocket"
-x="270"
-y="290"
-width="75"
-height="55"
-rx="3"
-/>
+        <small>
+          Exact distances vary by service, uniform, item, gender-specific configuration,
+          and current regulation.
+        </small>
+      </div>
 
-<!-- buttons -->
-<circle class="button" cx="260" cy="220" r="5"/>
-<circle class="button" cx="260" cy="265" r="5"/>
-<circle class="button" cx="260" cy="310" r="5"/>
-<circle class="button" cx="260" cy="355" r="5"/>
-<circle class="button" cx="260" cy="400" r="5"/>
+    </div>
+  </section>
 
-<!-- placement zones -->
+  <!-- CENTER -->
 
-<rect
-class="placement-zone"
-data-zone="rank"
-x="155"
-y="150"
-width="60"
-height="50"
-rx="8"
-/>
+  <section class="panel center-panel">
 
-<rect
-class="placement-zone"
-data-zone="ribbons"
-x="155"
-y="245"
-width="100"
-height="45"
-rx="8"
-/>
+    <div class="panel-head">
+      <h2 id="stageTitle">Uniform Setup</h2>
+      <p id="stageSubtitle">Tap an item on the left to place it.</p>
+    </div>
 
-<rect
-class="placement-zone"
-data-zone="medals"
-x="270"
-y="245"
-width="100"
-height="55"
-rx="8"
-/>
+    <div class="uniform-stage" id="uniformStage">
 
-<rect
-class="placement-zone"
-data-zone="badges"
-x="270"
-y="315"
-width="100"
-height="60"
-rx="8"
-/>
+      <div class="uniform" id="uniform">
+        <div class="centerline"></div>
 
-<g id="placedItems"></g>
+        <!-- Placement zones -->
+        <div class="zone" id="zoneName">
+          <div class="zone-label">NAME / RIGHT CHEST</div>
+        </div>
 
-</svg>
+        <div class="zone" id="zoneRank">
+          <div class="zone-label">RANK</div>
+        </div>
 
-</div>
+        <div class="zone" id="zoneRibbons">
+          <div class="zone-label">RIBBONS</div>
+        </div>
 
-</div>
+        <div class="zone" id="zoneMedals">
+          <div class="zone-label">MEDALS</div>
+        </div>
 
+        <div class="zone" id="zoneBadge">
+          <div class="zone-label">BADGE / INSIGNIA</div>
+        </div>
 
-<div>
+        <div id="uniformGraphic"></div>
 
-<div class="panel">
+        <div class="placed-area" id="placedArea"></div>
+      </div>
 
-<h2>Inspection</h2>
+    </div>
 
-<div class="check">
-<input type="checkbox" id="c1">
-<label for="c1">Correct uniform</label>
-</div>
+  </section>
 
-<div class="check">
-<input type="checkbox" id="c2">
-<label for="c2">Rank verified</label>
-</div>
+  <!-- RIGHT -->
 
-<div class="check">
-<input type="checkbox" id="c3">
-<label for="c3">Ribbons verified</label>
-</div>
+  <section class="panel right-panel">
 
-<div class="check">
-<input type="checkbox" id="c4">
-<label for="c4">Medals / badges verified</label>
-</div>
+    <div class="panel-head">
+      <h2>3. Inspection View</h2>
+      <p>Review what you've placed.</p>
+    </div>
 
-<div class="check">
-<input type="checkbox" id="c5">
-<label for="c5">Placement verified</label>
-</div>
+    <div class="panel-body">
 
-<div class="actions">
+      <div class="summary">
+        <div>
+          <span>Items placed</span>
+          <strong id="itemCount">0</strong>
+        </div>
 
-<button onclick="toggleZones()">
-Placement Zones
-</button>
+        <button class="btn danger" onclick="clearSetup()">Clear</button>
+      </div>
 
-<button onclick="clearUniform()">
-Clear
-</button>
+      <div class="placed-list" id="placedList">
+        <div class="empty">Nothing placed yet.</div>
+      </div>
 
-<button onclick="saveSetup()">
-Save
-</button>
+      <h3 class="section-title">Inspection checklist</h3>
 
-<button onclick="inspection()">
-Inspect
-</button>
+      <label class="check">
+        <input type="checkbox">
+        <span>Uniform is clean, serviceable, and properly fitted.</span>
+      </label>
 
-<button onclick="window.print()">
-Print
-</button>
+      <label class="check">
+        <input type="checkbox">
+        <span>Rank and insignia match the cadet's current position.</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox">
+        <span>Ribbons/medals are in the correct order for this uniform.</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox">
+        <span>Badges and qualification insignia are authorized.</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox">
+        <span>Placement and spacing have been verified against current guidance.</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox">
+        <span>Local JROTC instructor/unit requirements have been checked.</span>
+      </label>
+
+      <h3 class="section-title">Official references</h3>
+
+      <div class="sources" id="sources"></div>
+
+    </div>
+
+  </section>
 
 </div>
-
-</div>
-
-
-<div class="panel">
-
-<h3>Placement Guidance</h3>
-
-<p id="guidance" class="info">
-Select a JROTC program.
-</p>
-
-<div class="placement-help">
-<strong>How to use:</strong>
-
-<p class="info">
-Choose an item above and press ADD.
-The item will animate onto the uniform.
-Tap an item already on the uniform to remove it.
-</p>
-</div>
-
-<div class="notice">
-
-The app uses service-level JROTC references.
-Your school/unit may have additional rules.
-Always verify the current official regulation and
-your JROTC instructor's guidance before inspection.
-
-</div>
-
-</div>
-
-
-<div class="panel sources">
-
-<h3>Official / Program References</h3>
-
-<div id="sources"></div>
-
-</div>
-
-</div>
-
-</div>
-
-</main>
 
 <footer>
-JROTC Uniform Setup Guide • Educational reference
+  JROTC Uniform Setup Guide • Educational reference tool • Verify current official regulations before inspection.
 </footer>
 
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="helpModal">
+  <div class="modal-card">
+    <h2>How to use the guide</h2>
+
+    <ol>
+      <li>Select your service.</li>
+      <li>Select the uniform type.</li>
+      <li>Choose Rank, Ribbons, Medals, or Badges.</li>
+      <li>Tap an item to place it on the illustrated uniform.</li>
+      <li>Tap a placed item to remove it.</li>
+      <li>Use Placement Zones to visualize the general placement areas.</li>
+      <li>Use the inspection checklist before finalizing your uniform.</li>
+      <li>Save your setup if you want to come back later.</li>
+      <li>Print the setup when you're finished.</li>
+    </ol>
+
+    <p>
+      The visual model is intentionally an illustration rather than an official uniform photograph.
+      Regulations and unit instructions should always control when there is a difference.
+    </p>
+
+    <button class="btn primary" onclick="closeHelp()">Close</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 
 /* =========================================================
-   JROTC DATA
-   ========================================================= */
+   SERVICE DATA
+========================================================= */
 
-const DATA={
+const SERVICES = {
 
-Army:{
-color:"#4b5563",
+  army:{
+    name:"Army JROTC",
+    symbol:"★",
+    description:"Army Cadet Command uniform system",
+    uniforms:[
+      {
+        id:"army-casu",
+        name:"Cadet Army Service Uniform",
+        description:"Dress/service-style cadet uniform.",
+        color:"army",
+        source:"https://usarmyjrotc.army.mil/library/"
+      },
+      {
+        id:"army-classb",
+        name:"Class B Uniform",
+        description:"Army JROTC service shirt configuration.",
+        color:"army",
+        source:"https://usarmyjrotc.army.mil/resources/"
+      },
+      {
+        id:"army-cacu",
+        name:"Cadet Army Combat Uniform",
+        description:"Camouflage field uniform configuration.",
+        color:"cacu",
+        source:"https://usarmyjrotc.army.mil/library/"
+      }
+    ],
+    sources:[
+      ["Army JROTC Library","https://usarmyjrotc.army.mil/library/"],
+      ["Army JROTC Resources","https://usarmyjrotc.army.mil/resources/"]
+    ]
+  },
 
-uniforms:{
-"Army Service Uniform (ASU)":{
-note:"Army JROTC service uniform. Verify your unit's prescribed configuration.",
-guidance:"Army JROTC uniform wear is governed by Cadet Command regulations and unit instructions. Verify rank, ribbons, badges, nameplate and other insignia against the current regulation.",
-source:"https://usarmyjrotc.army.mil/resources/"
-},
+  navy:{
+    name:"Navy NJROTC",
+    symbol:"⚓",
+    description:"Navy Junior ROTC",
+    uniforms:[
+      {
+        id:"navy-sdb",
+        name:"Service Dress Blue",
+        description:"Navy-style service dress configuration.",
+        color:"navy",
+        source:"https://www.netc.navy.mil/Commands/Naval-Service-Training-Command/NJROTC/Instructions/Manuals/"
+      },
+      {
+        id:"navy-whites",
+        name:"Service Dress White",
+        description:"Navy-style white service uniform.",
+        color:"white",
+        source:"https://www.netc.navy.mil/Commands/Naval-Service-Training-Command/NJROTC/Instructions/Manuals/"
+      },
+      {
+        id:"navy-blue",
+        name:"Navy Service Uniform",
+        description:"Navy-style service uniform.",
+        color:"navy",
+        source:"https://www.netc.navy.mil/Commands/Naval-Service-Training-Command/NJROTC/Instructions/Manuals/"
+      }
+    ],
+    sources:[
+      ["NJROTC Manuals","https://www.netc.navy.mil/Commands/Naval-Service-Training-Command/NJROTC/Instructions/Manuals/"],
+      ["NJROTC Cadet Information","https://www.netc.navy.mil/Commands/Naval-Service-Training-Command/NJROTC/Cadet-Information/"]
+    ]
+  },
 
-"Class B":{
-note:"Army JROTC shirt-based uniform.",
-guidance:"Verify the exact Class B configuration prescribed by your JROTC unit.",
-source:"https://usarmyjrotc.army.mil/resources/"
-}
-},
+  airforce:{
+    name:"Air Force JROTC",
+    symbol:"✈",
+    description:"Air Force Junior ROTC",
+    uniforms:[
+      {
+        id:"af-service",
+        name:"Air Force Service Uniform",
+        description:"Blue service-style cadet uniform.",
+        color:"afblue",
+        source:"https://www.afjrotc.com/"
+      },
+      {
+        id:"af-classb",
+        name:"Air Force Class B",
+        description:"Service shirt configuration.",
+        color:"afblue",
+        source:"https://www.afjrotc.com/"
+      }
+    ],
+    sources:[
+      ["Air Force JROTC","https://www.afjrotc.com/"],
+      ["Air Force Dress & Appearance","https://www.afpc.af.mil/Career-Management/Dress-and-Appearance/"]
+    ]
+  },
 
-rank:[
-"Cadet Private",
-"Cadet Private First Class",
-"Cadet Corporal",
-"Cadet Sergeant",
-"Cadet Staff Sergeant",
-"Cadet Sergeant First Class",
-"Cadet Master Sergeant",
-"Cadet First Sergeant",
-"Cadet Sergeant Major",
-"Cadet Second Lieutenant",
-"Cadet First Lieutenant",
-"Cadet Captain",
-"Cadet Major",
-"Cadet Lieutenant Colonel",
-"Cadet Colonel"
-],
+  marine:{
+    name:"Marine Corps JROTC",
+    symbol:"⚔",
+    description:"Marine Corps Junior ROTC",
+    uniforms:[
+      {
+        id:"mc-service",
+        name:"Marine Corps Service Uniform",
+        description:"Marine Corps-style cadet service configuration.",
+        color:"marine",
+        source:"https://www.mcjrotc.marines.mil/"
+      },
+      {
+        id:"mc-green",
+        name:"Marine Corps Green Service",
+        description:"Green service-style configuration.",
+        color:"marine",
+        source:"https://www.mcjrotc.marines.mil/"
+      }
+    ],
+    sources:[
+      ["Marine Corps JROTC","https://www.mcjrotc.marines.mil/"],
+      ["Marine Corps Publications","https://www.marines.mil/Portals/1/Publications/MCO%201020.34H.pdf"]
+    ]
+  },
 
-ribbons:[
-"Army JROTC Superior Cadet",
-"Army JROTC Academic",
-"Army JROTC Leadership",
-"Army JROTC Achievement",
-"Army JROTC Service",
-"Army JROTC Physical Fitness",
-"Army JROTC Community Service",
-"Army JROTC Marksmanship",
-"Army JROTC Drill Team",
-"Army JROTC Color Guard",
-"Army JROTC Orienteering",
-"Army JROTC Recruiting",
-"Army JROTC Instructor",
-"Army JROTC Unit Award"
-],
+  coastguard:{
+    name:"Coast Guard JROTC",
+    symbol:"⚓",
+    description:"Coast Guard Junior ROTC",
+    uniforms:[
+      {
+        id:"cg-tropical",
+        name:"Tropical Blue",
+        description:"Light-blue short-sleeve service configuration.",
+        color:"cgblue",
+        source:"https://www.dcms.uscg.mil/Our-Organization/Assistant-Commandant-for-Human-Resources-HR/Personnel-Service-Center-PSC/Uniform-Standards/"
+      },
+      {
+        id:"cg-odu",
+        name:"Operational Dress Uniform",
+        description:"Coast Guard-style operational configuration.",
+        color:"odu",
+        source:"https://www.dcms.uscg.mil/Our-Organization/Assistant-Commandant-for-Human-Resources-HR/Personnel-Service-Center-PSC/Uniform-Standards/"
+      }
+    ],
+    sources:[
+      ["Coast Guard Uniform Standards","https://www.dcms.uscg.mil/Our-Organization/Assistant-Commandant-for-Human-Resources-HR/Personnel-Service-Center-PSC/Uniform-Standards/"]
+    ]
+  },
 
-medals:[
-"Superior Cadet Medal",
-"Academic Excellence Medal",
-"Leadership Excellence Medal",
-"Community Service Medal",
-"Physical Fitness Medal"
-],
-
-badges:[
-"Marksmanship Badge",
-"Driver / Mechanic Badge",
-"Air Assault Badge",
-"Airborne Badge",
-"JROTC Distinctive Insignia"
-]
-
-},
-
-
-Navy:{
-color:"#1e3a8a",
-
-uniforms:{
-"Navy Service Dress":{
-note:"NJROTC Service Dress configuration.",
-guidance:"NJROTC uses Navy uniform guidance. Ribbons, rank/rate insignia and badges must be arranged according to the Cadet Field Manual.",
-source:"https://www.netc.navy.mil/Commands/Naval-Service-Training-Command/NJROTC/Instructions/"
-},
-
-"Service Dress Blues":{
-note:"NJROTC blue service dress.",
-guidance:"Verify ribbon rows, insignia, rate/rank and badges against the current NJROTC Cadet Field Manual.",
-source:"https://www.netc.navy.mil/Commands/Naval-Service-Training-Command/NJROTC/Instructions/Manuals/"
-}
-},
-
-rank:[
-"Seaman Recruit",
-"Seaman Apprentice",
-"Seaman",
-"Petty Officer Third Class",
-"Petty Officer Second Class",
-"Petty Officer First Class",
-"Chief Petty Officer",
-"Senior Chief Petty Officer",
-"Master Chief Petty Officer",
-"Cadet Ensign",
-"Cadet Lieutenant Junior Grade",
-"Cadet Lieutenant",
-"Cadet Lieutenant Commander",
-"Cadet Commander",
-"Cadet Captain"
-],
-
-ribbons:[
-"Academic Team Award",
-"Drill Team Award",
-"Color Guard Award",
-"Marksmanship Team Award",
-"Orienteering Award",
-"Inter-Service Competition Award",
-"Recruiting Award",
-"Leadership Training Award",
-"Sea Cruise Award",
-"Community Service Award",
-"Unit Service Award",
-"Participation Award",
-"Physical Fitness Award",
-"Exemplary Conduct Award",
-"Exemplary Personal Appearance",
-"Outstanding Cadet Award"
-],
-
-medals:[
-"Outstanding Cadet Medal",
-"NJROTC Achievement Medal",
-"NJROTC Unit Service Medal",
-"Community Service Medal"
-],
-
-badges:[
-"Rifle Qualification",
-"Pistol Qualification",
-"Academic Team Insignia",
-"Color Guard Insignia",
-"Drill Team Insignia"
-]
-
-},
-
-
-"Air Force":{
-color:"#1e40af",
-
-uniforms:{
-"Air Force Service Dress":{
-note:"AFJROTC service dress configuration.",
-guidance:"AFJROTC awards and insignia are governed by Headquarters AFJROTC guidance and the unit cadet guide.",
-source:"https://www.afjrotc.com/"
-},
-
-"Class B":{
-note:"AFJROTC shirt-based configuration.",
-guidance:"Verify shirt, tie/tab, grade, ribbons and badges with your unit's current cadet guide.",
-source:"https://www.afjrotc.com/"
-}
-},
-
-rank:[
-"Cadet Airman Basic",
-"Cadet Airman",
-"Cadet Airman First Class",
-"Cadet Senior Airman",
-"Cadet Staff Sergeant",
-"Cadet Technical Sergeant",
-"Cadet Master Sergeant",
-"Cadet Senior Master Sergeant",
-"Cadet Chief Master Sergeant",
-"Cadet Second Lieutenant",
-"Cadet First Lieutenant",
-"Cadet Captain",
-"Cadet Major",
-"Cadet Lieutenant Colonel",
-"Cadet Colonel"
-],
-
-ribbons:[
-"Outstanding Cadet Ribbon",
-"Leadership Ribbon",
-"Superior Performance Ribbon",
-"Achievement Ribbon",
-"Academic Ribbon",
-"Cadet Leadership Course Ribbon",
-"Outstanding Flight Ribbon",
-"Special Teams Competition Ribbon",
-"Service Ribbon",
-"Good Conduct Ribbon",
-"Activities Ribbon",
-"Attendance Ribbon",
-"Dress and Appearance Ribbon",
-"Longevity Ribbon",
-"Recruiting Ribbon",
-"Physical Fitness Ribbon",
-"Patriotic Flag Ribbon",
-"CyberPatriot Ribbon",
-"JLAB Ribbon",
-"Stellar Xplorers Ribbon",
-"Raiders Team Ribbon",
-"Robotics Ribbon",
-"Bataan Memorial March Ribbon",
-"Distinguished Unit Award",
-"Outstanding Organization Award"
-],
-
-medals:[
-"AFJROTC Distinguished Cadet",
-"AFJROTC Outstanding Cadet",
-"AFJROTC Leadership Award",
-"Air Force Association Award"
-],
-
-badges:[
-"Kitty Hawk Air Society Badge",
-"Awareness Presentation Team Badge",
-"Distinguished AFJROTC Cadet Badge",
-"AEF Badge"
-]
-
-},
-
-
-"Marine Corps":{
-color:"#7f1d1d",
-
-uniforms:{
-"Marine Corps Blue Coat":{
-note:"MCJROTC blue coat.",
-guidance:"MCJROTC guidance places rank, ribbons, medals and badges in specified locations. Verify the current Cadet Handbook before final wear.",
-source:"https://www.mcjrotc.marines.mil/"
-},
-
-"Khaki Uniform":{
-note:"MCJROTC khaki configuration.",
-guidance:"Rank and awards use different placement rules from the blue coat. Verify the handbook.",
-source:"https://www.mcjrotc.marines.mil/"
-}
-},
-
-rank:[
-"Cadet Private",
-"Cadet Private First Class",
-"Cadet Lance Corporal",
-"Cadet Corporal",
-"Cadet Sergeant",
-"Cadet Staff Sergeant",
-"Cadet Gunnery Sergeant",
-"Cadet First Sergeant",
-"Cadet Sergeant Major",
-"Cadet Second Lieutenant",
-"Cadet First Lieutenant",
-"Cadet Captain",
-"Cadet Major",
-"Cadet Lieutenant Colonel",
-"Cadet Colonel"
-],
-
-ribbons:[
-"Legion of Valor",
-"MCRA",
-"American Legion Scholastic Excellence",
-"American Legion Military Excellence",
-"Sons of the American Revolution",
-"Daughters of the American Revolution",
-"Veterans of Foreign Wars",
-"Outstanding Cadet Ribbon",
-"Student Leadership Ribbon",
-"Officer Leadership Ribbon",
-"NCO Leadership Ribbon",
-"Civic Service Ribbon",
-"Best Drill Cadet Ribbon",
-"Distinguished Scholastic Achievement Ribbon",
-"Arts and Academics Ribbon",
-"Distinguished Military Training Ribbon",
-"Physical Achievement Ribbon",
-"Superior Marksman Ribbon",
-"Athletic Participation Ribbon",
-"Longevity / Fidelity Ribbon",
-"Distinguished Conduct Ribbon",
-"Best Drill Squad Ribbon"
-],
-
-medals:[
-"Outstanding Cadet Medal",
-"Academic Excellence Medal",
-"Leadership Medal",
-"Military Excellence Medal",
-"Physical Achievement Medal"
-],
-
-badges:[
-"Marksmanship Badge",
-"Drill Badge",
-"Leadership Badge"
-]
-
-},
-
-
-"Coast Guard":{
-color:"#1e3a8a",
-
-uniforms:{
-"Tropical Blue Service Uniform":{
-note:"CGJROTC Tropical Blue configuration.",
-guidance:"The CGJROTC Cadet Field Manual contains specific ribbon precedence, devices and mounting guidance.",
-source:"https://www.uscg.mil/Community/JROTC/"
-}
-},
-
-rank:[
-"Seaman Recruit",
-"Seaman Apprentice",
-"Seaman",
-"Petty Officer Third Class",
-"Petty Officer Second Class",
-"Petty Officer First Class",
-"Chief Petty Officer",
-"Senior Chief Petty Officer",
-"Master Chief Petty Officer",
-"Cadet Ensign",
-"Cadet Lieutenant Junior Grade",
-"Cadet Lieutenant",
-"Cadet Lieutenant Commander",
-"Cadet Commander",
-"Cadet Captain"
-],
-
-ribbons:[
-"Academic Team",
-"Drill Team",
-"Color Guard",
-"Marksmanship Team",
-"Orienteering",
-"Inter-Service Competition",
-"Recruiting",
-"Leadership Training",
-"Sea Cruise",
-"Community Service",
-"Unit Service",
-"Participation",
-"Physical Fitness",
-"Exemplary Conduct",
-"Exemplary Personal Appearance",
-"Outstanding Cadet"
-],
-
-medals:[
-"Outstanding Cadet Medal",
-"Academic Achievement Medal",
-"Leadership Medal",
-"Community Service Medal"
-],
-
-badges:[
-"Marksmanship",
-"Color Guard",
-"Drill Team",
-"Academic Team"
-]
-
-},
-
-
-"Space Force":{
-color:"#0f172a",
-
-uniforms:{
-"Space Force JROTC":{
-note:"Space Force JROTC units developed from transferred AFJROTC programs. Verify your unit's current SFJROTC/Department of the Air Force guidance.",
-guidance:"Space Force JROTC configurations can be unit/program specific. Use your unit's current guidance for exact insignia and placement.",
-source:"https://www.spaceforce.mil/"
-}
-},
-
-rank:[
-"Cadet Specialist 1",
-"Cadet Specialist 2",
-"Cadet Specialist 3",
-"Cadet Specialist 4",
-"Cadet Sergeant",
-"Cadet Technical Sergeant",
-"Cadet Master Sergeant",
-"Cadet Senior Master Sergeant",
-"Cadet Chief Master Sergeant",
-"Cadet Second Lieutenant",
-"Cadet First Lieutenant",
-"Cadet Captain",
-"Cadet Major",
-"Cadet Lieutenant Colonel",
-"Cadet Colonel"
-],
-
-ribbons:[
-"Outstanding Cadet Ribbon",
-"Leadership Ribbon",
-"Superior Performance Ribbon",
-"Achievement Ribbon",
-"Academic Ribbon",
-"Service Ribbon",
-"Activities Ribbon",
-"Attendance Ribbon",
-"Dress and Appearance Ribbon",
-"Longevity Ribbon",
-"Physical Fitness Ribbon",
-"Recruiting Ribbon",
-"Cyber / Space Team Award",
-"Unit Award"
-],
-
-medals:[
-"Outstanding Cadet Medal",
-"Academic Achievement Medal",
-"Leadership Medal",
-"Service Medal"
-],
-
-badges:[
-"Space Badge",
-"Cyber Badge",
-"Specialty Badge",
-"Marksmanship Badge"
-]
-
-}
+  spaceforce:{
+    name:"Space Force",
+    symbol:"✦",
+    description:"Space Force / cadet-style reference configuration",
+    uniforms:[
+      {
+        id:"sf-service",
+        name:"Space Force Service Dress",
+        description:"Space Force-inspired service illustration. Verify local cadet program requirements.",
+        color:"space",
+        source:"https://www.spaceforce.mil/"
+      },
+      {
+        id:"sf-classb",
+        name:"Space Force Service Shirt",
+        description:"Service-shirt style illustration.",
+        color:"space",
+        source:"https://www.spaceforce.mil/"
+      }
+    ],
+    sources:[
+      ["U.S. Space Force","https://www.spaceforce.mil/"],
+      ["Space Force Dress & Appearance Information","https://www.spaceforce.mil/"]
+    ]
+  }
 
 };
 
 
 /* =========================================================
-   ELEMENTS
+   ITEMS
 ========================================================= */
 
-const service=document.getElementById("service");
-const uniformType=document.getElementById("uniformType");
-const items=document.getElementById("items");
-const uniformInfo=document.getElementById("uniformInfo");
-const guidance=document.getElementById("guidance");
-const sources=document.getElementById("sources");
-const placedItems=document.getElementById("placedItems");
-const uniformSvg=document.getElementById("uniformSvg");
-const uniformStage=document.getElementById("uniformStage");
-const torso=document.getElementById("torso");
-const shoulders=document.getElementById("shoulders");
+const COMMON_RANKS = [
+  ["E-1 / Cadet","rank"],
+  ["E-2 / Cadet","rank"],
+  ["E-3 / Cadet","rank"],
+  ["E-4 / Cadet","rank"],
+  ["E-5 / Cadet","rank"],
+  ["E-6 / Cadet","rank"],
+  ["E-7 / Cadet","rank"],
+  ["E-8 / Cadet","rank"],
+  ["E-9 / Cadet","rank"],
+  ["Officer / Cadet","rank"]
+];
 
-let currentTab="rank";
-let placementZones=false;
-let placedCount=0;
+const ARMY_RIBBONS = [
+  ["Cadet Achievement","pattern-blue-red"],
+  ["Academic Achievement","blue"],
+  ["Physical Fitness","red"],
+  ["Community Service","green"],
+  ["JROTC Service","pattern-blue-white"],
+  ["Leadership","gold"],
+  ["Drill Team","green"],
+  ["Marksmanship","pattern-green-white"],
+  ["Orienteering","orange"],
+  ["Cadet Challenge","blue"],
+  ["Instructor Award","gold"],
+  ["Unit Award","purple"]
+];
+
+const NAVY_RIBBONS = [
+  ["Meritorious Achievement","pattern-blue-red"],
+  ["Distinguished Unit","blue"],
+  ["Distinguished Cadet","gold"],
+  ["Honor Cadet","pattern-blue-white"],
+  ["Cadet Achievement","red"],
+  ["Unit Achievement","green"],
+  ["Aptitude","blue"],
+  ["NS Outstanding Cadet","gold"],
+  ["Exemplary Conduct","pattern-green-white"],
+  ["Exemplary Personal Appearance","white"],
+  ["Physical Fitness","red"],
+  ["Participation","blue"],
+  ["Unit Service","green"],
+  ["Community Service","pattern-green-white"],
+  ["Academic Team","blue"],
+  ["Drill Team","red"],
+  ["Color Guard","pattern-blue-red"],
+  ["S.T.E.M.","purple"],
+  ["Marksmanship Team","green"],
+  ["Orienteering Team","orange"],
+  ["Inter-Service Competition","pattern-rainbow"],
+  ["Recruiting","gold"],
+  ["Leadership Training","blue"],
+  ["Sea Cruise","teal"],
+  ["C.E.R.T.","red"]
+];
+
+const AIRFORCE_RIBBONS = [
+  ["Achievement","blue"],
+  ["Leadership","gold"],
+  ["Academic","pattern-blue-white"],
+  ["Physical Fitness","red"],
+  ["Community Service","green"],
+  ["Drill Team","blue"],
+  ["Color Guard","pattern-blue-red"],
+  ["Marksmanship","green"],
+  ["Special Team","purple"],
+  ["Unit Award","gold"]
+];
+
+const MARINE_RIBBONS = [
+  ["Achievement","red"],
+  ["Academic","blue"],
+  ["Leadership","gold"],
+  ["Community Service","green"],
+  ["Physical Fitness","orange"],
+  ["Drill Team","pattern-red-white"],
+  ["Color Guard","red"],
+  ["Marksmanship","green"],
+  ["Unit Award","purple"]
+];
+
+const COAST_RIBBONS = [
+  ["Achievement","blue"],
+  ["Academic","pattern-blue-white"],
+  ["Leadership","gold"],
+  ["Community Service","green"],
+  ["Physical Fitness","red"],
+  ["Team Award","green"],
+  ["Service Award","teal"],
+  ["Unit Award","purple"]
+];
+
+const SPACE_RIBBONS = [
+  ["Achievement","blue"],
+  ["Leadership","gold"],
+  ["Academic","pattern-blue-white"],
+  ["Physical Fitness","red"],
+  ["Service","green"],
+  ["Team Award","purple"],
+  ["Unit Award","teal"]
+];
+
+const MEDALS = [
+  ["Achievement Medal","gold"],
+  ["Service Medal","silver"],
+  ["Leadership Medal","gold"],
+  ["Academic Medal","blue"],
+  ["Unit Medal","red"]
+];
+
+const BADGES = [
+  ["Cadet Badge","badge"],
+  ["Leadership Badge","badge"],
+  ["Academic Badge","badge"],
+  ["Marksmanship Badge","badge"],
+  ["Drill Badge","badge"],
+  ["Aviation / Flight Badge","badge"],
+  ["Team Badge","badge"],
+  ["Special Qualification","badge"]
+];
 
 
 /* =========================================================
-   SERVICES
+   STATE
 ========================================================= */
 
-Object.keys(DATA).forEach(name=>{
+let selectedService = "army";
+let selectedTab = "rank";
+let selectedUniform = null;
+let placedItems = [];
+let showZonesState = false;
 
-  const option=document.createElement("option");
 
-  option.value=name;
-  option.textContent=name;
+/* =========================================================
+   DOM
+========================================================= */
 
-  service.appendChild(option);
+const serviceGrid = document.getElementById("serviceGrid");
+const uniformSelect = document.getElementById("uniformSelect");
+const uniformName = document.getElementById("uniformName");
+const uniformDescription = document.getElementById("uniformDescription");
+const itemGrid = document.getElementById("itemGrid");
+const uniformGraphic = document.getElementById("uniformGraphic");
+const placedArea = document.getElementById("placedArea");
+const placedList = document.getElementById("placedList");
+const itemCount = document.getElementById("itemCount");
+const sources = document.getElementById("sources");
+const uniform = document.getElementById("uniform");
+const uniformStage = document.getElementById("uniformStage");
+
+
+/* =========================================================
+   SERVICE UI
+========================================================= */
+
+function renderServices(){
+
+  serviceGrid.innerHTML = "";
+
+  Object.entries(SERVICES).forEach(([key,service])=>{
+
+    const button = document.createElement("button");
+
+    button.className =
+      "service-card " +
+      (selectedService===key ? "active" : "");
+
+    button.innerHTML = `
+      <div class="service-symbol">${service.symbol}</div>
+      <div class="service-name">${service.name}</div>
+      <div class="service-desc">${service.description}</div>
+    `;
+
+    button.onclick = ()=>{
+      selectedService = key;
+      placedItems = [];
+      selectedTab = "rank";
+      renderAll();
+      showToast(`${service.name} selected`);
+    };
+
+    serviceGrid.appendChild(button);
+  });
+}
+
+
+/* =========================================================
+   UNIFORM UI
+========================================================= */
+
+function renderUniforms(){
+
+  const service = SERVICES[selectedService];
+
+  uniformSelect.innerHTML = "";
+
+  service.uniforms.forEach((u,index)=>{
+
+    const option = document.createElement("option");
+
+    option.value = u.id;
+    option.textContent = u.name;
+
+    uniformSelect.appendChild(option);
+
+    if(index===0){
+      selectedUniform = u.id;
+    }
+  });
+
+  const savedUniform =
+    service.uniforms.find(x=>x.id===selectedUniform);
+
+  if(savedUniform){
+    uniformSelect.value = savedUniform.id;
+    updateUniformInfo(savedUniform);
+  }
+
+  uniformSelect.onchange = ()=>{
+    selectedUniform = uniformSelect.value;
+    placedItems = [];
+    const u = service.uniforms.find(x=>x.id===selectedUniform);
+    updateUniformInfo(u);
+    renderUniformGraphic();
+    renderPlaced();
+  };
+
+  renderSources();
+}
+
+
+function updateUniformInfo(u){
+
+  if(!u) return;
+
+  uniformName.textContent = u.name;
+  uniformDescription.textContent = u.description;
+
+  document.getElementById("stageTitle").textContent = u.name;
+  document.getElementById("stageSubtitle").textContent =
+    "Tap an item on the left to place it.";
+}
+
+
+/* =========================================================
+   ITEM TABS
+========================================================= */
+
+document.querySelectorAll(".tab").forEach(tab=>{
+
+  tab.addEventListener("click",()=>{
+
+    document.querySelectorAll(".tab")
+      .forEach(t=>t.classList.remove("active"));
+
+    tab.classList.add("active");
+
+    selectedTab = tab.dataset.tab;
+
+    renderItems();
+  });
 
 });
 
 
-/* =========================================================
-   LOAD SERVICE
-========================================================= */
-
-function loadService(){
-
-  uniformType.innerHTML="";
-
-  const data=DATA[service.value];
-
-  Object.keys(data.uniforms).forEach(name=>{
-
-    const option=document.createElement("option");
-
-    option.value=name;
-    option.textContent=name;
-
-    uniformType.appendChild(option);
-
-  });
-
-  setUniformStyle();
-
-  loadUniform();
-
-}
-
-
-/* =========================================================
-   LOAD UNIFORM
-========================================================= */
-
-function loadUniform(){
-
-  const data=DATA[service.value];
-  const uniform=data.uniforms[uniformType.value];
-
-  uniformInfo.textContent=uniform.note;
-
-  guidance.textContent=uniform.guidance;
-
-  sources.innerHTML=`
-    <a href="${uniform.source}" target="_blank">
-      Open official / program reference ↗
-    </a>
-  `;
-
-  setUniformStyle();
-
-  renderItems();
-
-}
-
-
-/* =========================================================
-   UNIFORM COLORS / APPEARANCE
-========================================================= */
-
-function setUniformStyle(){
-
-  const color=DATA[service.value].color;
-
-  torso.style.fill=color;
-  shoulders.style.fill=color;
-
-  uniformStage.classList.remove("animate-in");
-
-  void uniformStage.offsetWidth;
-
-  uniformStage.classList.add("animate-in");
-
-}
-
-
-/* =========================================================
-   RENDER ITEMS
-========================================================= */
-
 function renderItems(){
 
-  const list=DATA[service.value][currentTab] || [];
+  itemGrid.innerHTML = "";
 
-  items.innerHTML="";
+  let items = [];
 
-  list.forEach((name,index)=>{
+  if(selectedTab==="rank"){
+    items = COMMON_RANKS;
+  }
 
-    const box=document.createElement("div");
+  if(selectedTab==="ribbons"){
 
-    box.className="item";
+    const ribbonMap = {
+      army:ARMY_RIBBONS,
+      navy:NAVY_RIBBONS,
+      airforce:AIRFORCE_RIBBONS,
+      marine:MARINE_RIBBONS,
+      coastguard:COAST_RIBBONS,
+      spaceforce:SPACE_RIBBONS
+    };
 
-    let visual="";
+    items = ribbonMap[selectedService] || [];
+  }
 
-    if(currentTab==="rank"){
+  if(selectedTab==="medals"){
+    items = MEDALS;
+  }
 
-      visual=`
-        <div class="rank">
-          ${rankShortName(name)}
+  if(selectedTab==="badges"){
+    items = BADGES;
+  }
+
+  items.forEach((item,index)=>{
+
+    const button = document.createElement("button");
+
+    button.className = "item";
+
+    const name = item[0];
+    const type = item[1];
+
+    button.innerHTML = `
+      <div class="item-visual">
+        ${itemVisual(type,index)}
+      </div>
+      <div class="item-name">${name}</div>
+      <div class="item-type">${selectedTab}</div>
+    `;
+
+    button.onclick = ()=>{
+      addItem({
+        id:Date.now()+Math.random(),
+        name,
+        type:selectedTab,
+        visual:type,
+        index
+      });
+    };
+
+    itemGrid.appendChild(button);
+  });
+}
+
+
+/* =========================================================
+   ITEM VISUALS
+========================================================= */
+
+function itemVisual(type,index){
+
+  if(type==="rank"){
+    return `
+      <div style="
+        width:48px;
+        height:25px;
+        border-radius:5px;
+        background:#172d44;
+        border:1px solid #7190ab;
+        display:grid;
+        place-items:center;
+        color:#f6c453;
+        font-weight:900;
+        font-size:11px;
+      ">
+        ★
+      </div>
+    `;
+  }
+
+  if(type==="badge"){
+    return `
+      <div style="
+        width:36px;
+        height:36px;
+        border-radius:50%;
+        background:linear-gradient(145deg,#ffe9a1,#a56b00);
+        border:2px solid #fff0b8;
+        display:grid;
+        place-items:center;
+        color:#211a0c;
+        font-size:17px;
+      ">★</div>
+    `;
+  }
+
+  if(selectedTab==="ribbons"){
+    return `<div class="ribbon ${type}"></div>`;
+  }
+
+  if(selectedTab==="medals"){
+    return `
+      <div class="placed-medal" style="transform:scale(.8)">
+        <div class="medal-ribbon"></div>
+        <div class="medal-disc">★</div>
+      </div>
+    `;
+  }
+
+  return "";
+}
+
+
+/* =========================================================
+   ADD / REMOVE ITEMS
+========================================================= */
+
+function addItem(item){
+
+  placedItems.push(item);
+
+  renderPlaced();
+
+  showToast(`${item.name} placed`);
+}
+
+
+function removeItem(id){
+
+  placedItems = placedItems.filter(x=>x.id!==id);
+
+  renderPlaced();
+
+  showToast("Item removed");
+}
+
+
+/* =========================================================
+   PLACEMENT
+========================================================= */
+
+function getPlacement(item,index){
+
+  const type = item.type;
+
+  if(type==="rank"){
+
+    const row = index % 5;
+
+    return {
+      x:50,
+      y:17 + row*3
+    };
+  }
+
+  if(type==="ribbons"){
+
+    const columns = 3;
+
+    const col = index % columns;
+    const row = Math.floor(index / columns);
+
+    return {
+      x:40 + col*9,
+      y:38 + row*3.6
+    };
+  }
+
+  if(type==="medals"){
+
+    const col = index % 4;
+    const row = Math.floor(index / 4);
+
+    return {
+      x:34 + col*11,
+      y:45 + row*9
+    };
+  }
+
+  if(type==="badges"){
+
+    return {
+      x:62 + (index%3)*8,
+      y:31 + Math.floor(index/3)*10
+    };
+  }
+
+  return {
+    x:50,
+    y:50
+  };
+}
+
+
+/* =========================================================
+   RENDER PLACED ITEMS
+========================================================= */
+
+function renderPlaced(){
+
+  placedArea.innerHTML = "";
+
+  placedItems.forEach((item,index)=>{
+
+    const pos = getPlacement(item,index);
+
+    const el = document.createElement("div");
+
+    el.className = "placed";
+
+    el.style.left = pos.x + "%";
+    el.style.top = pos.y + "%";
+
+    if(item.type==="ribbons"){
+
+      el.innerHTML = `
+        <div class="ribbon placed-ribbon ${item.visual}"
+             title="${escapeHtml(item.name)}"></div>
+      `;
+
+    }else if(item.type==="medals"){
+
+      el.innerHTML = `
+        <div class="placed-medal" title="${escapeHtml(item.name)}">
+          <div class="medal-ribbon"></div>
+          <div class="medal-disc">★</div>
         </div>
       `;
 
-    }
+    }else if(item.type==="badges"){
 
-    else if(currentTab==="ribbons"){
-
-      visual=`
-        <div class="ribbon ribbon-${ribbonClass()}"></div>
+      el.innerHTML = `
+        <div class="placed-badge" title="${escapeHtml(item.name)}">
+          ★
+        </div>
       `;
 
+    }else{
+
+      el.innerHTML = `
+        <div style="
+          min-width:46px;
+          height:23px;
+          padding:3px 6px;
+          border-radius:5px;
+          background:#172d44;
+          border:1px solid #a0b6ca;
+          color:#f6c453;
+          display:grid;
+          place-items:center;
+          font-size:9px;
+          font-weight:900;
+        " title="${escapeHtml(item.name)}">
+          ★
+        </div>
+      `;
     }
 
-    else if(currentTab==="medals"){
-
-      visual=`<div class="medal"></div>`;
-
-    }
-
-    else{
-
-      visual=`<div class="badge"></div>`;
-
-    }
-
-    box.innerHTML=`
-
-      <strong>${name}</strong>
-
-      ${visual}
-
-      <button>
-        ADD
-      </button>
-
-    `;
-
-    box.querySelector("button").onclick=()=>{
-
-      addItem(name,currentTab,index);
-
+    el.onclick = ()=>{
+      removeItem(item.id);
     };
 
-    items.appendChild(box);
-
+    placedArea.appendChild(el);
   });
 
-}
+  itemCount.textContent = placedItems.length;
 
+  if(placedItems.length===0){
 
-function rankShortName(name){
+    placedList.innerHTML =
+      `<div class="empty">Nothing placed yet.</div>`;
 
-  return name
-    .replace("Cadet ","")
-    .replace("First ","1")
-    .replace("Second ","2")
-    .replace("Third ","3")
-    .replace("Sergeant ","S")
-    .slice(0,12);
+  }else{
 
-}
+    placedList.innerHTML = "";
 
+    placedItems.forEach((item,index)=>{
 
-function ribbonClass(){
+      const row = document.createElement("div");
 
-  const s=service.value;
+      row.className = "list-item";
 
-  if(s==="Army")return"army";
-  if(s==="Navy")return"navy";
-  if(s==="Air Force")return"air";
-  if(s==="Marine Corps")return"marine";
-  if(s==="Coast Guard")return"coast";
+      row.innerHTML = `
+        <div class="list-dot"></div>
+        <div style="flex:1">
+          <strong>${escapeHtml(item.name)}</strong>
+          <div style="color:#70869c;font-size:9px">
+            ${item.type}
+          </div>
+        </div>
+        <button class="btn" style="padding:4px 7px;font-size:10px">
+          Remove
+        </button>
+      `;
 
-  return"space";
+      row.querySelector("button").onclick = ()=>{
+        removeItem(item.id);
+      };
 
+      placedList.appendChild(row);
+    });
+  }
 }
 
 
 /* =========================================================
-   ADD ITEM
+   UNIFORM SVG GENERATOR
 ========================================================= */
 
-function addItem(name,type,index){
+function renderUniformGraphic(){
 
-  const group=document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "g"
+  const service = SERVICES[selectedService];
+
+  const u = service.uniforms.find(
+    x=>x.id===selectedUniform
   );
 
-  group.classList.add("placed");
+  if(!u) return;
 
-  group.dataset.name=name;
-  group.dataset.type=type;
+  let colors = getUniformColors(u.color);
 
-  let x=260;
-  let y=200;
+  uniform.classList.remove("animate");
 
-  if(type==="rank"){
+  void uniform.offsetWidth;
 
-    x=service.value==="Marine Corps"?205:175;
-    y=175;
+  uniform.classList.add("animate");
 
-  }
+  uniformGraphic.innerHTML = `
+    <svg viewBox="0 0 380 620" aria-label="${escapeHtml(u.name)}">
 
-  else if(type==="ribbons"){
+      <!-- neck -->
+      <path
+        d="M145 22 L235 22 L222 82 L158 82 Z"
+        fill="${colors.skin}"
+        stroke="#111"
+        stroke-width="2"
+      />
 
-    x=205;
-    y=270 + Math.min(index,5)*15;
+      <!-- head -->
+      <circle
+        cx="190"
+        cy="65"
+        r="42"
+        fill="${colors.skin}"
+        stroke="#111"
+        stroke-width="2"
+      />
 
-  }
+      <!-- hair -->
+      <path
+        d="M150 58 Q160 20 190 22 Q220 20 230 58 Q214 42 190 47 Q166 42 150 58"
+        fill="#17202b"
+      />
 
-  else if(type==="medals"){
+      <!-- left arm -->
+      <path
+        d="M85 170 L42 205 L72 455 L116 440 L108 225 Z"
+        fill="${colors.main}"
+        stroke="${colors.stroke}"
+        stroke-width="3"
+      />
 
-    x=315;
-    y=270 + Math.min(index,4)*52;
+      <!-- right arm -->
+      <path
+        d="M295 170 L338 205 L308 455 L264 440 L272 225 Z"
+        fill="${colors.main}"
+        stroke="${colors.stroke}"
+        stroke-width="3"
+      />
 
-  }
+      <!-- torso -->
+      <path
+        d="M108 130
+           L145 105
+           L190 122
+           L235 105
+           L272 130
+           L260 445
+           L120 445 Z"
+        fill="${colors.main}"
+        stroke="${colors.stroke}"
+        stroke-width="3"
+      />
 
-  else if(type==="badges"){
+      <!-- collar -->
+      <path
+        d="M145 105 L190 122 L166 165 L139 124 Z"
+        fill="${colors.collar}"
+        stroke="${colors.stroke}"
+        stroke-width="2"
+      />
 
-    x=315;
-    y=345 + Math.min(index,3)*55;
+      <path
+        d="M235 105 L190 122 L214 165 L241 124 Z"
+        fill="${colors.collar}"
+        stroke="${colors.stroke}"
+        stroke-width="2"
+      />
 
-  }
+      <!-- center seam -->
+      <path
+        d="M190 122 L190 445"
+        stroke="${colors.stroke}"
+        stroke-width="2"
+        opacity=".7"
+      />
 
-  group.setAttribute(
-    "transform",
-    `translate(${x} ${y})`
-  );
+      <!-- buttons -->
+      ${[165,205,245,285,325,365,405].map(y=>`
+        <circle
+          cx="190"
+          cy="${y}"
+          r="4"
+          fill="#d8d8d8"
+          stroke="#333"
+          stroke-width="1"
+        />
+      `).join("")}
 
-  group.addEventListener("click",e=>{
+      <!-- left pocket -->
+      <path
+        d="M125 215 L178 215 L178 270 L125 270 Z"
+        fill="none"
+        stroke="${colors.stroke}"
+        stroke-width="2"
+      />
 
-    e.stopPropagation();
+      <!-- right pocket -->
+      <path
+        d="M202 215 L255 215 L255 270 L202 270 Z"
+        fill="none"
+        stroke="${colors.stroke}"
+        stroke-width="2"
+      />
 
-    group.remove();
+      <!-- shoulder boards -->
+      <rect
+        x="120"
+        y="112"
+        width="58"
+        height="16"
+        rx="4"
+        fill="${colors.board}"
+        stroke="#111"
+      />
 
-  });
+      <rect
+        x="202"
+        y="112"
+        width="58"
+        height="16"
+        rx="4"
+        fill="${colors.board}"
+        stroke="#111"
+      />
 
+      <!-- lower jacket -->
+      <path
+        d="M120 445 L260 445 L275 575 L105 575 Z"
+        fill="${colors.main}"
+        stroke="${colors.stroke}"
+        stroke-width="3"
+      />
 
-  if(type==="rank"){
+      <!-- belt -->
+      <rect
+        x="104"
+        y="438"
+        width="172"
+        height="22"
+        rx="3"
+        fill="${colors.belt}"
+        stroke="#111"
+        stroke-width="2"
+      />
 
-    const rect=document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "rect"
-    );
+      <!-- belt buckle -->
+      <rect
+        x="175"
+        y="438"
+        width="30"
+        height="22"
+        fill="${colors.buckle}"
+        stroke="#333"
+        stroke-width="2"
+      />
 
-    rect.setAttribute("x",-28);
-    rect.setAttribute("y",-15);
-    rect.setAttribute("width",56);
-    rect.setAttribute("height",30);
-    rect.setAttribute("rx",5);
+      <!-- legs -->
+      <path
+        d="M115 575 L178 575 L170 618 L102 618 Z"
+        fill="${colors.pants}"
+        stroke="#111"
+        stroke-width="3"
+      />
 
-    rect.setAttribute("fill","#111827");
-    rect.setAttribute("stroke","#e2e8f0");
+      <path
+        d="M202 575 L265 575 L278 618 L210 618 Z"
+        fill="${colors.pants}"
+        stroke="#111"
+        stroke-width="3"
+      />
 
-    group.appendChild(rect);
+    </svg>
+  `;
 
-    const text=document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text"
-    );
-
-    text.setAttribute("text-anchor","middle");
-    text.setAttribute("y","5");
-    text.setAttribute("fill","white");
-    text.setAttribute("font-size","8");
-
-    text.textContent=rankShortName(name);
-
-    group.appendChild(text);
-
-  }
-
-
-  else if(type==="ribbons"){
-
-    const rect=document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "rect"
-    );
-
-    rect.setAttribute("x",-43);
-    rect.setAttribute("y",-11);
-    rect.setAttribute("width",86);
-    rect.setAttribute("height",22);
-
-    rect.setAttribute(
-      "fill",
-      ribbonSVGColor()
-    );
-
-    rect.setAttribute("stroke","#f8fafc");
-
-    group.appendChild(rect);
-
-    const text=document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text"
-    );
-
-    text.setAttribute("text-anchor","middle");
-    text.setAttribute("y","4");
-    text.setAttribute("font-size","6");
-    text.setAttribute("fill","#111827");
-
-    text.textContent=name;
-
-    group.appendChild(text);
-
-  }
-
-
-  else if(type==="medals"){
-
-    const circle=document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "circle"
-    );
-
-    circle.setAttribute("r",22);
-    circle.setAttribute("fill","#d5ae43");
-    circle.setAttribute("stroke","#f8fafc");
-    circle.setAttribute("stroke-width","3");
-
-    group.appendChild(circle);
-
-  }
-
-
-  else{
-
-    const polygon=document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "polygon"
-    );
-
-    polygon.setAttribute(
-      "points",
-      "0,-25 23,-8 15,20 -15,20 -23,-8"
-    );
-
-    polygon.setAttribute(
-      "fill","#e5e7eb"
-    );
-
-    polygon.setAttribute(
-      "stroke","#475569"
-    );
-
-    group.appendChild(polygon);
-
-  }
-
-  placedItems.appendChild(group);
-
-  placedCount++;
-
+  positionZones();
 }
 
 
-function ribbonSVGColor(){
+function getUniformColors(type){
 
-  const s=service.value;
+  const skin = "#c88f68";
 
-  if(s==="Army")return"#b91c1c";
-  if(s==="Navy")return"#1e3a8a";
-  if(s==="Air Force")return"#38bdf8";
-  if(s==="Marine Corps")return"#7f1d1d";
-  if(s==="Coast Guard")return"#dc2626";
+  const configs = {
 
-  return"#38bdf8";
+    army:{
+      main:"#4b5563",
+      stroke:"#202936",
+      collar:"#596675",
+      board:"#34465b",
+      belt:"#1c1f21",
+      buckle:"#c5a64b",
+      pants:"#3f4854",
+      skin
+    },
 
+    cacu:{
+      main:"#59604f",
+      stroke:"#252b23",
+      collar:"#66705c",
+      board:"#4d5747",
+      belt:"#20251f",
+      buckle:"#77715d",
+      pants:"#535b4e",
+      skin
+    },
+
+    navy:{
+      main:"#071b32",
+      stroke:"#020b14",
+      collar:"#102f4e",
+      board:"#102f4e",
+      belt:"#050b12",
+      buckle:"#d2b65e",
+      pants:"#061a30",
+      skin
+    },
+
+    white:{
+      main:"#e8edf1",
+      stroke:"#7b8792",
+      collar:"#d7dde2",
+      board:"#d9e0e5",
+      belt:"#152232",
+      buckle:"#d2b65e",
+      pants:"#e0e5e9",
+      skin
+    },
+
+    afblue:{
+      main:"#4c6078",
+      stroke:"#253548",
+      collar:"#536b84",
+      board:"#334c66",
+      belt:"#172434",
+      buckle:"#d1b85e",
+      pants:"#44576c",
+      skin
+    },
+
+    marine:{
+      main:"#173d2b",
+      stroke:"#0c1e16",
+      collar:"#1f5037",
+      board:"#254f3b",
+      belt:"#171b17",
+      buckle:"#bfa04e",
+      pants:"#173a2a",
+      skin
+    },
+
+    cgblue:{
+      main:"#91bdd0",
+      stroke:"#466879",
+      collar:"#a7cedc",
+      board:"#6fa4bb",
+      belt:"#18232b",
+      buckle:"#d2b65e",
+      pants:"#4c5961",
+      skin
+    },
+
+    odu:{
+      main:"#68705f",
+      stroke:"#30372d",
+      collar:"#747c6a",
+      board:"#596052",
+      belt:"#1d211c",
+      buckle:"#bba15d",
+      pants:"#61695c",
+      skin
+    },
+
+    space:{
+      main:"#202a3a",
+      stroke:"#0c1018",
+      collar:"#313e52",
+      board:"#283b52",
+      belt:"#10151c",
+      buckle:"#b8a24e",
+      pants:"#202938",
+      skin
+    }
+
+  };
+
+  return configs[type] || configs.army;
+}
+
+
+/* =========================================================
+   ZONES
+========================================================= */
+
+function positionZones(){
+
+  const name = document.getElementById("zoneName");
+  const rank = document.getElementById("zoneRank");
+  const ribbons = document.getElementById("zoneRibbons");
+  const medals = document.getElementById("zoneMedals");
+  const badge = document.getElementById("zoneBadge");
+
+  name.style.left="53%";
+  name.style.top="29%";
+  name.style.width="28%";
+  name.style.height="7%";
+
+  rank.style.left="47%";
+  rank.style.top="15%";
+  rank.style.width="14%";
+  rank.style.height="15%";
+
+  ribbons.style.left="29%";
+  ribbons.style.top="34%";
+  ribbons.style.width="43%";
+  ribbons.style.height="20%";
+
+  medals.style.left="27%";
+  medals.style.top="41%";
+  medals.style.width="46%";
+  medals.style.height="22%";
+
+  badge.style.left="57%";
+  badge.style.top="26%";
+  badge.style.width="23%";
+  badge.style.height="24%";
+}
+
+
+function toggleZones(){
+
+  showZonesState = !showZonesState;
+
+  uniformStage.classList.toggle(
+    "show-zones",
+    showZonesState
+  );
+
+  showToast(
+    showZonesState
+      ? "Placement zones ON"
+      : "Placement zones OFF"
+  );
+}
+
+
+/* =========================================================
+   SOURCES
+========================================================= */
+
+function renderSources(){
+
+  const service = SERVICES[selectedService];
+
+  sources.innerHTML = "";
+
+  service.sources.forEach(([name,url])=>{
+
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.target="_blank";
+    a.rel="noopener noreferrer";
+
+    a.textContent = name;
+
+    sources.appendChild(a);
+  });
+}
+
+
+/* =========================================================
+   SAVE / LOAD
+========================================================= */
+
+function saveSetup(){
+
+  const data = {
+    service:selectedService,
+    uniform:selectedUniform,
+    tab:selectedTab,
+    items:placedItems
+  };
+
+  localStorage.setItem(
+    "jrotcUniformSetup",
+    JSON.stringify(data)
+  );
+
+  showToast("Setup saved to this device");
+}
+
+
+function loadSetup(){
+
+  const raw =
+    localStorage.getItem("jrotcUniformSetup");
+
+  if(!raw){
+    showToast("No saved setup found");
+    return;
+  }
+
+  try{
+
+    const data = JSON.parse(raw);
+
+    selectedService = data.service || "army";
+    selectedUniform = data.uniform || null;
+    selectedTab = data.tab || "rank";
+    placedItems = data.items || [];
+
+    renderAll();
+
+    document.querySelectorAll(".tab")
+      .forEach(t=>{
+        t.classList.toggle(
+          "active",
+          t.dataset.tab===selectedTab
+        );
+      });
+
+    renderItems();
+
+    showToast("Saved setup loaded");
+
+  }catch(error){
+
+    showToast("Could not load saved setup");
+
+  }
 }
 
 
@@ -1594,155 +2373,142 @@ function ribbonSVGColor(){
    CLEAR
 ========================================================= */
 
-function clearUniform(){
+function clearSetup(){
 
-  placedItems.innerHTML="";
-
-  placedCount=0;
-
-  document
-    .querySelectorAll(".check input")
-    .forEach(box=>box.checked=false);
-
-}
-
-
-/* =========================================================
-   PLACEMENT ZONES
-========================================================= */
-
-function toggleZones(){
-
-  placementZones=!placementZones;
-
-  uniformSvg.classList.toggle(
-    "show-zones",
-    placementZones
-  );
-
-}
-
-
-/* =========================================================
-   SAVE
-========================================================= */
-
-function saveSetup(){
-
-  const setup={
-
-    service:service.value,
-
-    uniform:uniformType.value,
-
-    items:[
-
-      ...placedItems.children
-
-    ].map(item=>({
-
-      name:item.dataset.name,
-
-      type:item.dataset.type,
-
-      transform:item.getAttribute("transform")
-
-    }))
-
-  };
-
-  localStorage.setItem(
-    "jrotcUniformSetup",
-    JSON.stringify(setup)
-  );
-
-  alert("Uniform setup saved on this device.");
-
-}
-
-
-/* =========================================================
-   INSPECTION
-========================================================= */
-
-function inspection(){
-
-  const boxes=[
-    ...document.querySelectorAll(".check input")
-  ];
-
-  const complete=boxes.every(box=>box.checked);
-
-  if(complete){
-
-    alert(
-      "Inspection checklist complete. Still verify the actual current regulation and your unit's handbook before wearing the uniform."
-    );
-
-  }else{
-
-    alert(
-      "Inspection checklist is not complete yet."
-    );
-
+  if(!placedItems.length){
+    showToast("Nothing to clear");
+    return;
   }
 
+  placedItems = [];
+
+  renderPlaced();
+
+  showToast("Setup cleared");
 }
 
 
 /* =========================================================
-   TABS
+   PRINT
 ========================================================= */
 
-document
-.querySelectorAll(".tab")
-.forEach(tab=>{
+function printSetup(){
 
-  tab.onclick=()=>{
+  window.print();
+}
 
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(()=>{
+    toast.classList.remove("show");
+  },1800);
+}
+
+
+/* =========================================================
+   RENDER EVERYTHING
+========================================================= */
+
+function renderAll(){
+
+  renderServices();
+
+  renderUniforms();
+
+  renderItems();
+
+  renderUniformGraphic();
+
+  renderPlaced();
+
+  renderSources();
+
+  document.querySelectorAll(".tab")
+    .forEach(t=>{
+      t.classList.toggle(
+        "active",
+        t.dataset.tab===selectedTab
+      );
+    });
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+renderAll();
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener("keydown",(event)=>{
+
+  if(event.key==="Escape"){
     document
-      .querySelectorAll(".tab")
-      .forEach(x=>{
-        x.classList.remove("active");
-      });
+      .getElementById("helpModal")
+      .classList.remove("open");
+  }
 
-    tab.classList.add("active");
+  if(event.key.toLowerCase()==="z"){
+    toggleZones();
+  }
 
-    currentTab=tab.dataset.tab;
-
-    renderItems();
-
-  };
-
+  if(event.key.toLowerCase()==="s"){
+    saveSetup();
+  }
 });
 
 
 /* =========================================================
-   EVENTS
+   DOUBLE-CLICK UNIFORM = HELP
 ========================================================= */
 
-service.onchange=()=>{
+uniform.addEventListener("dblclick",()=>{
 
-  clearUniform();
+  document
+    .getElementById("helpModal")
+    .classList.add("open");
 
-  loadService();
-
-};
-
-uniformType.onchange=()=>{
-
-  clearUniform();
-
-  loadUniform();
-
-};
+});
 
 
-/* =========================================================
-   START
-========================================================= */
+function closeHelp(){
 
-loadService();
+  document
+    .getElementById("helpModal")
+    .classList.remove("open");
+
+}
 
 </script>
 
