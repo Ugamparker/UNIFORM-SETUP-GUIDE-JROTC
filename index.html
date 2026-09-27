@@ -1,5 +1,735 @@
-<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>JROTC Uniform Setup Guide</title><style>
-body{margin:0;background:#0b1020;color:#eef2ff;font-family:system-ui;padding:18px}main{max-width:1000px;margin:auto}.box{background:#141d33;border:1px solid #34446b;border-radius:16px;padding:18px;margin:12px 0}select,button{padding:12px;border-radius:10px;background:#0b1224;color:white;border:1px solid #40527d;margin:5px}button{cursor:pointer}.row{display:flex;gap:12px;flex-wrap:wrap}.uniform{height:520px;max-width:430px;margin:auto;position:relative;background:#263653;border:2px solid #65779f;border-radius:20px}.collar{position:absolute;top:15px;left:38%;width:24%;height:65px;background:#1b2944;clip-path:polygon(0 0,100% 0,70% 100%,50% 70%,30% 100%)}.pocket{position:absolute;top:150px;width:32%;height:70px;border:2px solid #7182a8}.pocket.l{left:8%}.pocket.r{right:8%}.ribbons{position:absolute;left:11%;top:190px}.ribbon{width:65px;height:12px;margin:3px;background:linear-gradient(90deg,#c33 0 25%,#eee 25% 50%,#3570c8 50% 75%,#dbb83e 75%)}.medals{position:absolute;right:14%;top:190px;display:flex;gap:4px}.medal{width:25px;height:25px;border-radius:50%;background:#c3c6ce;border:2px solid #eee}.rank{position:absolute;top:105px;left:50%;transform:translateX(-50%);background:#eee;color:#17213a;padding:5px;border-radius:4px;font-size:11px;font-weight:bold}.items{display:flex;overflow:auto;gap:8px}.item{min-width:120px;text-align:center;padding:10px;border:1px solid #40527d;border-radius:10px}.note{color:#aeb9d1;font-size:13px}
-</style></head><body><main><div class="box"><h1>JROTC Uniform Setup Guide</h1><p>Select a service and uniform, then add rank, ribbons, medals, or badges.</p><div class="row"><select id="service"></select><select id="uniform"></select></div><p class="note">Use your current official service/JROTC regulation and unit guidance to verify exact measurements before inspection.</p></div><div class="box"><div id="tabs"></div><div class="items" id="items"></div></div><div class="box"><div class="uniform" id="u"><div class="collar"></div><div class="pocket l"></div><div class="pocket r"></div><div class="ribbons" id="r"></div><div class="medals" id="m"></div></div><h2 id="name"></h2><ul id="guide"></ul><button onclick="clearAll()">Clear</button></div></main><script>
-const D={Army:["Class A / Service Dress","Class B / Shirt"],Navy:["Service Dress Blue","Navy Service Uniform","Working Khaki"],"Air Force":["Class A / Service Dress","Class B / Blue Shirt"],"Marine Corps:["Blue Coat","Khaki Shirt"],"Coast Guard:["Tropical Blue Short Sleeve","Operational Dress Uniform"],"Space Force:["Service Dress","Semi-Formal Dress"]};let S=document.querySelector("#service"),U=document.querySelector("#uniform"),tab=document.querySelector("#tabs"),items=document.querySelector("#items"),R=document.querySelector("#r"),M=document.querySelector("#m"),state={rank:false,r:0,m:0,b:0};Object.keys(D).forEach(x=>S.add(new Option(x,x)));function load(){U.innerHTML="";D[S.value].forEach(x=>U.add(new Option(x,x)));render("Rank")}S.onchange=load;U.onchange=()=>render("Rank");function render(t){tab.innerHTML=["Rank","Ribbons","Medals","Badges"].map(x=>`<button onclick="render('${x}')">${x}</button>`).join("");items.innerHTML="";let n=t==="Ribbons"?6:t==="Medals"?3:t==="Badges"?3:1;for(let i=1;i<=n;i++){let d=document.createElement("div");d.className="item";d.innerHTML=`<b>${t} ${i}</b><button>Add</button>`;d.querySelector("button").onclick=()=>add(t);items.append(d)}document.querySelector("#name").textContent=S.value+" — "+U.value;document.querySelector("#guide").innerHTML="<li>Follow the current regulation for this exact uniform.</li><li>Confirm measurements and authorized awards with your JROTC unit before inspection.</li>"}function add(t){if(t==="Rank")state.rank=true;if(t==="Ribbons")state.r++;if(t==="Medals")state.m++;draw()}function draw(){document.querySelector(".rank")?.remove();if(state.rank){let x=document.createElement("div");x.className="rank";x.textContent="RANK";document.querySelector("#u").append(x)}R.innerHTML="";for(let i=0;i<state.r;i++)R.innerHTML+='<div class="ribbon"></div>';M.innerHTML="";for(let i=0;i<state.m;i++)M.innerHTML+='<div class="medal"></div>'}function clearAll(){state={rank:false,r:0,m:0,b:0};draw()}load();
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JROTC Uniform Setup Guide</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#080b12;
+  color:#f3f5f7
+}
+header{
+  padding:22px 18px;
+  text-align:center;
+  background:linear-gradient(135deg,#111827,#0b1020);
+  border-bottom:1px solid #263044
+}
+h1{margin:0 0 7px;font-size:27px}
+header p{margin:0;color:#9ca8ba}
+
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:18px
+}
+
+.panel{
+  background:#111722;
+  border:1px solid #2b3547;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px
+}
+
+label{
+  display:block;
+  font-weight:700;
+  margin:12px 0 7px
+}
+
+select,button{
+  width:100%;
+  border:1px solid #39465d;
+  border-radius:12px;
+  padding:13px;
+  background:#182131;
+  color:#fff;
+  font-size:15px
+}
+
+button{
+  cursor:pointer;
+  font-weight:700
+}
+
+button:hover{background:#223047}
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:15px
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:8px
+}
+
+.tab{
+  min-width:max-content;
+  width:auto;
+  padding:10px 15px
+}
+
+.tab.active{
+  background:#31445f;
+  border-color:#6d8ebd
+}
+
+.workspace{
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:18px
+}
+
+.uniform-area{
+  min-height:650px;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  overflow:hidden;
+  border-radius:15px;
+  background:
+    linear-gradient(90deg,transparent 49.8%,#334155 50%,transparent 50.2%),
+    #0d131e
+}
+
+.uniform{
+  width:min(480px,90%);
+  height:620px;
+  position:relative;
+  margin-top:20px
+}
+
+.shoulders{
+  position:absolute;
+  left:5%;
+  top:3%;
+  width:90%;
+  height:90px;
+  background:#263344;
+  clip-path:polygon(12% 0,88% 0,100% 55%,83% 100%,17% 100%,0 55%)
+}
+
+.torso{
+  position:absolute;
+  left:15%;
+  top:10%;
+  width:70%;
+  height:75%;
+  background:#303b4a;
+  border:2px solid #526176;
+  border-radius:8px 8px 18px 18px
+}
+
+.collar{
+  position:absolute;
+  left:38%;
+  top:7%;
+  width:24%;
+  height:65px;
+  background:#1d2633;
+  clip-path:polygon(0 0,100% 0,68% 100%,32% 100%)
+}
+
+.centerline{
+  position:absolute;
+  left:50%;
+  top:4%;
+  height:86%;
+  border-left:2px dashed #64748b;
+  opacity:.7
+}
+
+.pocket{
+  position:absolute;
+  width:27%;
+  height:70px;
+  border:2px solid #66758a;
+  top:32%
+}
+
+.pocket.left{left:21%}
+.pocket.right{right:21%}
+
+.placed{
+  position:absolute;
+  z-index:5;
+  transform:translate(-50%,-50%);
+  cursor:pointer;
+  box-shadow:0 2px 7px #0008
+}
+
+.ribbon{
+  width:75px;
+  height:20px;
+  border:1px solid #ddd;
+  background:linear-gradient(
+    90deg,
+    #b91c1c 0 20%,
+    #fff 20% 40%,
+    #2563eb 40% 60%,
+    #fff 60% 80%,
+    #b91c1c 80%
+  )
+}
+
+.medal{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#c5a65a;
+  border:3px solid #eee
+}
+
+.badge{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  background:#d8dde5;
+  border:2px solid #475569
+}
+
+.rank{
+  padding:6px 9px;
+  background:#111827;
+  border:1px solid #cbd5e1;
+  border-radius:5px;
+  font-size:12px
+}
+
+.items{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:12px 2px
+}
+
+.item{
+  flex:0 0 105px;
+  text-align:center;
+  padding:10px;
+  border-radius:12px;
+  background:#182131;
+  border:1px solid #354258
+}
+
+.item strong{display:block;margin-bottom:7px}
+
+.item button{padding:8px;font-size:13px}
+
+.info{
+  color:#aeb9c9;
+  line-height:1.5
+}
+
+.check{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:9px;
+  border-bottom:1px solid #273246
+}
+
+.check input{width:20px;height:20px}
+
+.notice{
+  padding:13px;
+  background:#241d0d;
+  border:1px solid #675122;
+  border-radius:12px;
+  color:#e8d59b;
+  line-height:1.45
+}
+
+.sources a{
+  display:block;
+  color:#7db4ff;
+  margin:8px 0;
+  text-decoration:none
+}
+
+footer{
+  text-align:center;
+  color:#7f8b9d;
+  padding:25px
+}
+
+@media(max-width:800px){
+  .workspace{grid-template-columns:1fr}
+  .actions{grid-template-columns:1fr 1fr}
+  .uniform-area{min-height:590px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🎖️ JROTC Uniform Setup Guide</h1>
+<p>Build your uniform • place insignia • inspect • print</p>
+</header>
+
+<main>
+
+<div class="panel">
+
+<label for="service">1. Select Service</label>
+<select id="service"></select>
+
+<label for="uniformType">2. Select Uniform</label>
+<select id="uniformType"></select>
+
+<div id="uniformInfo" class="info"></div>
+
+</div>
+
+<div class="panel">
+
+<div class="tabs">
+<button class="tab active" data-tab="rank">Rank</button>
+<button class="tab" data-tab="ribbons">Ribbons</button>
+<button class="tab" data-tab="medals">Medals</button>
+<button class="tab" data-tab="badges">Badges / Insignia</button>
+</div>
+
+<div id="items" class="items"></div>
+
+</div>
+
+<div class="workspace">
+
+<div class="panel uniform-area">
+
+<div class="uniform" id="uniform">
+
+<div class="shoulders"></div>
+<div class="torso"></div>
+<div class="collar"></div>
+<div class="centerline"></div>
+
+<div class="pocket left"></div>
+<div class="pocket right"></div>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="panel">
+
+<h2>Inspection</h2>
+
+<div class="check">
+<input type="checkbox" id="c1">
+<label for="c1">Correct uniform selected</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="c2">
+<label for="c2">Rank verified</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="c3">
+<label for="c3">Ribbons verified</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="c4">
+<label for="c4">Medals / badges verified</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="c5">
+<label for="c5">Spacing checked</label>
+</div>
+
+<div class="actions">
+<button onclick="clearUniform()">Clear</button>
+<button onclick="saveSetup()">Save</button>
+<button onclick="inspection()">Inspect</button>
+<button onclick="window.print()">Print</button>
+</div>
+
+</div>
+
+<div class="panel">
+<h3>Placement Guidance</h3>
+<p id="guidance" class="info">
+Select a service and uniform to view guidance.
+</p>
+
+<div class="notice">
+Always verify the current official service regulation and your JROTC instructor's instructions before final inspection. Local JROTC programs may prescribe additional requirements.
+</div>
+</div>
+
+<div class="panel sources">
+<h3>Official References</h3>
+<div id="sources"></div>
+</div>
+
+</div>
+</div>
+
+</main>
+
+<footer>
+JROTC Uniform Setup Guide • Educational reference tool
+</footer>
+
+<script>
+
+const DATA={
+
+Army:{
+uniforms:{
+"class A / Service Dress":{
+note:"Use the Army regulation applicable to the uniform and your JROTC program.",
+guidance:"Verify coat, shirt, neckwear, rank, ribbons, badges and other insignia against the current Army uniform regulation and your JROTC program.",
+source:"https://armypubs.army.mil/"
+},
+"Class B":{
+note:"Service-specific Class B configurations vary by program.",
+guidance:"Verify the exact shirt, neckwear, rank and award configuration prescribed for your unit.",
+source:"https://armypubs.army.mil/"
+}
+},
+items:{
+rank:["CPL","SGT","SSG","SFC"],
+ribbons:["Army Achievement","Army Commendation","Good Conduct","Unit Award"],
+medals:["Achievement","Commendation","Good Conduct"],
+badges:["Marksmanship","Driver","Aviation","Unit Badge"]
+}
+},
+
+Navy:{
+uniforms:{
+"Service Dress":{
+note:"Navy JROTC uniform configurations depend on the prescribed uniform.",
+guidance:"Verify rating/rank insignia, ribbons, badges and spacing against current Navy uniform guidance.",
+source:"https://www.mynavyhr.navy.mil/References/US-Navy-Uniforms/"
+},
+"Service Dress Blues":{
+note:"Blue service dress configuration.",
+guidance:"Check all insignia against the current Navy uniform regulations and your unit instructions.",
+source:"https://www.mynavyhr.navy.mil/References/US-Navy-Uniforms/"
+}
+},
+items:{
+rank:["E-3","E-4","E-5","E-6"],
+ribbons:["Navy Achievement","Navy Commendation","Unit Award"],
+medals:["Achievement","Commendation"],
+badges:["Rifle","Pistol","Aviation","Specialty"]
+}
+},
+
+"Air Force":{
+uniforms:{
+"Service Dress":{
+note:"Air Force service dress configuration.",
+guidance:"Verify ribbons, badges, grade insignia and placement against current Department of the Air Force guidance.",
+source:"https://www.afpc.af.mil/Career-Management/Dress-and-Appearance/"
+},
+"Class B":{
+note:"Shirt-based configuration.",
+guidance:"Confirm the required shirt, tie, grade, ribbons and badges for your JROTC program.",
+source:"https://www.afpc.af.mil/Career-Management/Dress-and-Appearance/"
+}
+},
+items:{
+rank:["Airman","A1C","SSgt","TSgt"],
+ribbons:["Achievement","Commendation","Service","Unit"],
+medals:["Achievement","Commendation"],
+badges:["Pilot","Marksmanship","Cyber","Specialty"]
+}
+},
+
+"Marine Corps":{
+uniforms:{
+"Service Dress":{
+note:"Marine Corps service dress configuration.",
+guidance:"Verify placement using the current Marine Corps uniform regulations and your JROTC instructions.",
+source:"https://www.marines.mil/Portals/1/Publications/MCO%201020.34H.pdf"
+}
+},
+items:{
+rank:["PFC","LCpl","Cpl","Sgt"],
+ribbons:["Achievement","Good Conduct","Unit Award"],
+medals:["Achievement","Commendation"],
+badges:["Marksmanship","Combat Skills","Specialty"]
+}
+},
+
+"Coast Guard":{
+uniforms:{
+"Service Dress Blue":{
+note:"Coast Guard service dress configuration.",
+guidance:"Verify grade, ribbons, insignia and badges using current Coast Guard uniform standards.",
+source:"https://www.dcms.uscg.mil/Our-Organization/Assistant-Commandant-for-Human-Resources-HR/Personnel-Service-Center-PSC/Uniform-Standards/"
+}
+},
+items:{
+rank:["SN","PO3","PO2","PO1"],
+ribbons:["Achievement","Commendation","Service"],
+medals:["Achievement","Commendation"],
+badges:["Qualification","Specialty","Marksmanship"]
+}
+},
+
+"Space Force":{
+uniforms:{
+"Service Dress":{
+note:"Space Force uniform policies are evolving; verify the current guidance.",
+guidance:"Confirm current Space Force grade, ribbons, badges and insignia requirements before using the guide for inspection.",
+source:"https://www.spaceforce.mil/"
+}
+},
+items:{
+rank:["Spc3","Spc2","Spc1","Sgt"],
+ribbons:["Achievement","Commendation","Service"],
+medals:["Achievement","Commendation"],
+badges:["Space Badge","Cyber","Specialty"]
+}
+}
+
+};
+
+const service=document.getElementById("service");
+const uniformType=document.getElementById("uniformType");
+const items=document.getElementById("items");
+const uniform=document.getElementById("uniform");
+const guidance=document.getElementById("guidance");
+const uniformInfo=document.getElementById("uniformInfo");
+const sources=document.getElementById("sources");
+
+let currentTab="rank";
+
+Object.keys(DATA).forEach(s=>{
+ const o=document.createElement("option");
+ o.value=s;
+ o.textContent=s;
+ service.appendChild(o);
+});
+
+function loadService(){
+
+ uniformType.innerHTML="";
+
+ const data=DATA[service.value];
+
+ Object.keys(data.uniforms).forEach(u=>{
+  const o=document.createElement("option");
+  o.value=u;
+  o.textContent=u;
+  uniformType.appendChild(o);
+ });
+
+ loadUniform();
+}
+
+function loadUniform(){
+
+ const data=DATA[service.value];
+ const u=data.uniforms[uniformType.value];
+
+ uniformInfo.textContent=u.note;
+ guidance.textContent=u.guidance;
+
+ sources.innerHTML=
+ `<a href="${u.source}" target="_blank">Open official reference ↗</a>`;
+
+ renderItems();
+}
+
+function renderItems(){
+
+ const list=DATA[service.value].items[currentTab]||[];
+
+ items.innerHTML="";
+
+ list.forEach((name,i)=>{
+
+  const box=document.createElement("div");
+  box.className="item";
+
+  let visual="";
+
+  if(currentTab==="ribbons")
+   visual=`<div class="ribbon"></div>`;
+  else if(currentTab==="medals")
+   visual=`<div class="medal"></div>`;
+  else if(currentTab==="badges")
+   visual=`<div class="badge"></div>`;
+  else
+   visual=`<div class="rank">${name}</div>`;
+
+  box.innerHTML=
+   `<strong>${name}</strong>
+    ${visual}
+    <button>Add</button>`;
+
+  box.querySelector("button").onclick=()=>addItem(name,i);
+
+  items.appendChild(box);
+
+ });
+
+}
+
+function addItem(name,i){
+
+ const el=document.createElement("div");
+
+ el.className=`placed ${currentTab==="ribbons"?"ribbon":
+ currentTab==="medals"?"medal":
+ currentTab==="badges"?"badge":"rank"}`;
+
+ el.textContent=currentTab==="rank"?name:"";
+
+ const count=uniform.querySelectorAll(".placed").length;
+
+ let x=50;
+ let y=22+count*7;
+
+ if(currentTab==="rank"){
+   x=service.value==="Army"?23:77;
+   y=22;
+ }
+
+ if(currentTab==="ribbons"){
+   x=50;
+   y=35+count*5;
+ }
+
+ if(currentTab==="medals"){
+   x=50;
+   y=48+count*7;
+ }
+
+ if(currentTab==="badges"){
+   x=count%2?68:32;
+   y=60+Math.floor(count/2)*9;
+ }
+
+ el.style.left=x+"%";
+ el.style.top=y+"%";
+
+ el.title="Tap to remove";
+
+ el.onclick=()=>el.remove();
+
+ uniform.appendChild(el);
+}
+
+function clearUniform(){
+
+ uniform.querySelectorAll(".placed").forEach(e=>e.remove());
+
+ document.querySelectorAll(".check input")
+ .forEach(e=>e.checked=false);
+}
+
+function saveSetup(){
+
+ const setup={
+ service:service.value,
+ uniform:uniformType.value,
+ items:[...uniform.querySelectorAll(".placed")]
+ .map(e=>({
+  className:e.className,
+  text:e.textContent,
+  left:e.style.left,
+  top:e.style.top
+ }))
+ };
+
+ localStorage.setItem("jrotcSetup",JSON.stringify(setup));
+
+ alert("Setup saved on this device.");
+}
+
+function loadSaved(){
+
+ const raw=localStorage.getItem("jrotcSetup");
+
+ if(!raw)return;
+
+ try{
+
+  const setup=JSON.parse(raw);
+
+  service.value=setup.service;
+  loadService();
+  uniformType.value=setup.uniform;
+  loadUniform();
+
+  setup.items.forEach(data=>{
+
+   const el=document.createElement("div");
+
+   el.className=data.className;
+   el.textContent=data.text;
+   el.style.left=data.left;
+   el.style.top=data.top;
+
+   el.onclick=()=>el.remove();
+
+   uniform.appendChild(el);
+
+  });
+
+ }catch(e){}
+
+}
+
+function inspection(){
+
+ const boxes=[...document.querySelectorAll(".check input")];
+
+ const complete=boxes.every(x=>x.checked);
+
+ alert(
+ complete
+ ? "Inspection checklist complete. Verify measurements against the current official regulation before wearing the uniform."
+ : "Inspection checklist is not complete yet."
+ );
+}
+
+document.querySelectorAll(".tab").forEach(tab=>{
+
+ tab.onclick=()=>{
+
+  document.querySelectorAll(".tab")
+  .forEach(x=>x.classList.remove("active"));
+
+  tab.classList.add("active");
+
+  currentTab=tab.dataset.tab;
+
+  renderItems();
+ };
+
+});
+
+service.onchange=loadService;
+uniformType.onchange=loadUniform;
+
+loadService();
+loadSaved();
+
+</script>
+
+</body>
+</html>
